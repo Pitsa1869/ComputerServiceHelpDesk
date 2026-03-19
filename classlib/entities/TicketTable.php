@@ -101,7 +101,7 @@ class ticketsTable extends TableEntity
      */
     public function getUserMessages($userID)
     {
-        $this->SQL = "SELECT ticketID,dateTimeStamp,ticketAuthorID,ticketText FROM tickets WHERE ticketAuthorID<>'$userID'";
+        $this->SQL = "SELECT ticketID,dateTimeStamp,ticketAuthorID,ticketText FROM tickets WHERE ticketAuthorID='$userID'";
 
         //execute the query using a try catch 
         try {

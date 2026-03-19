@@ -57,7 +57,7 @@ class CustomerMessages extends PanelModel{
                 $this->panelHead_1='<h3>Delete - My Messages</h3>';
                 break;
             case "viewMsgs":
-                $this->panelHead_1='<h3>View Messages Addressed to Me or to All other users</h3>';
+                $this->panelHead_1='<h3>View my Tickets</h3>';
                 break;
             case "sendMsg":
                 $this->panelHead_1='<h3>Send Messages</h3>';
@@ -74,7 +74,7 @@ class CustomerMessages extends PanelModel{
     public function setPanelContent_1(){
         switch ($this->pageID) {
             case "messages":
-                $this->panelContent_1='This messages sub-menu illustrates a number of different implementations of messaging between users - including live chat which utilises AJAX';
+                $this->panelContent_1='This is tickets sub-menu. Select an option from the top menu bar';
                 break;
             case "livechat":
                 $this->panelContent_1= Form::form_add_msg($this->pageID);
