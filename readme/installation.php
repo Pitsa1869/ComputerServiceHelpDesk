@@ -81,18 +81,7 @@ include_once '../config/config.php'; ?>
                  <li>Manager ID: <code>flann@gmail.com</code> and Password: <code>Password1</code></li>
                  <li>Customer ID: <code>janeh@mail.com</code> and Password: <code>Password1</code></li>
              </ul>  
-             
-             
-             <h2>AJAX Setup</h2>
-             <p>This application supports an AJAX live chat function for logged in customers. For it to work the following changes must be made to the <code>/config/config.php</code>file:
-             <ul>
-                 <li>Set the <code>CHAT_ENABLED</code> global variable to TRUE - Note: it is currently set to 
-                     <?php  if (CHAT_ENABLED) echo '<code>TRUE</code>'; else echo '<code>FALSE</code>' ?></li>
-                 <li>Set the <code>$serverIP_address</code>_address variable to point to the network IP address for the Apache Server this app is running on. This can be found by opening a command window and typing <code>ipconfig</code>
-                 - Note: it is currently set to <code><?php echo $serverIP_address; ?> </code></li>
-                 <li>Set the <code>$root_path</code>_address variable to path from the Apache Server <code>/htdocs</code> folder to the  <code>index.php</code> file of this application - Note it is currently set to <code><?php echo $root_path; ?></code></li>
-                 <li>Then load the home page including the IP address in the URL - your current settings are : <?php echo "<a href='".__THIS_URI_ROOT."'>".__THIS_URI_ROOT."</a>"; ?> </li>
-             </ul>    
+
              
              <h2>Next steps - Explore the framework</h2>
              <p>You should start by studying the structure of this application. You will see that the main features are

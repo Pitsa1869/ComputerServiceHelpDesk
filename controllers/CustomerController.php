@@ -112,17 +112,6 @@ class CustomerController extends Controller  {
                     include_once 'views/view_navbar_3_panel.php'; //load the view                  
                     break;  
                 
-                //Messages
-                case "chat":
-                    //this handler is called by AJAX partial page updater
-                    //it doesnt return content to a view
-                    //it is used to respond to the AJAX request from the chat script that is embedded in the view
-                    $msgTable=new ChatMsgTable($this->db);
-                    array_push($this->controllerObjects,$msgTable);
-                    $rs=$msgTable->getLatestUserMessages($this->user->getUserID(),10);
-                    echo HelperHTML::generateCHAT($rs,$this->user->getUserID());
-
-                    break;
                   break;
                 
                  case "messages":
@@ -135,16 +124,7 @@ class CustomerController extends Controller  {
                     //update the view
                     include_once 'views/view_navbar_1_panel.php';  //load the view   
                     break;
-                case "livechat":
-                    //create objects to generate view content
-                    $contentModel = new CustomerMessages($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
-                    $navigationModel = new NavigationCustomer($this->user, $this->getArray['pageID']);
-                    array_push($this->controllerObjects,$navigationModel,$contentModel);
-                    $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models 
-                    $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
-                    //update the view
-                    include_once 'views/view_navbar_2_panel.php';  //load the view   
-                    break;
+
                 case "viewMsgs":
                     //create objects to generate view content
                     $contentModel = new CustomerMessages($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);

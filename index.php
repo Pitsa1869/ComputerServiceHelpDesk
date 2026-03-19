@@ -197,7 +197,7 @@ $db->query("SET NAMES 'utf8'"); //make sure database connection is set to suppor
 
 //Create the new session object and new user object
 $session = new Session();
-$session->setChatEnabledState(CHAT_ENABLED);
+
 $user = new User($session, $db, ENCRYPT_PW);
 
 
@@ -320,8 +320,6 @@ if (DEBUG_MODE) {
             echo '<h3>GLOBAL variables (config/config.php) </h3>';
             echo '<table border=1  style="background-color: #EEEEEE" >';
                 echo '<tr><td>ENCRYPT_PW</td><td>'.ENCRYPT_PW.'</td></tr>';
-                echo '<tr><td>CHAT_ENABLED</td><td>'.CHAT_ENABLED.'</td></tr>';
-                echo '<tr><td>__THIS_URI_ROOT</td><td>'.__THIS_URI_ROOT.'</td></tr>';
             echo '</table><hr>';
             echo '<!-- END config.php GLOBAL variables  -->';
         echo '</section>';  

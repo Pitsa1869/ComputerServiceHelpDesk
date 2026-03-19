@@ -67,12 +67,6 @@ class User {
     
     /**
      *
-     * @var boolean $chatEnabled  TRUE if AJAX chat is enabled for this session
-     */
-    protected $chatEnabled;   
-    
-    /**
-     *
      * @var boolean $loggedin  TRUE if user is logged in
      */
     protected $loggedin;
@@ -116,7 +110,7 @@ class User {
         $this->userFirstName=$session->getUserFirstName();
         $this->userLastName=$session->getUserLastName();
         $this->userType=$session->getUserType();
-        $this->chatEnabled=$session->getChatEnabledState();
+
         $this->encryptPW=$encryptPW;
         $this->postArray=array();
         $this->userTableDiagnostics='No User Table Entity Class diagnostic information available';
@@ -206,12 +200,7 @@ class User {
      */
     public function setLoginAttempts($num){$this->session->setLoginAttempts($num);}
     
-    /**
-     * Sets the chat enabled state
-     * 
-     * @param boolean $state The desired chat enabled state
-     */
-    public function setChatEnabledState($state){$this->session->setChatEnabledState($state);}
+
     
     /**
      * Sets the logged in state.
@@ -269,12 +258,7 @@ class User {
      */    
     public function getLoginAttempts(){return $this->session->getLoginAttempts();}  
 
-     /**
-     * Returns the state of the chatEnabled property. TRUE if chatEnabled is set. 
-     *  
-     * @return boolean
-     */     
-    public function getChatEnabledState(){return $this->chatEnabled;}
+
     
     
     /**
@@ -294,7 +278,7 @@ class User {
             $diagnostic .=  "<tr><td>userFirstName  </td><td>$this->userFirstName     </td></tr>";
             $diagnostic .=  "<tr><td>userLastName  </td><td>$this->userLastName         </td></tr>";
             $diagnostic .=  "<tr><td>userType  </td><td>$this->userType         </td></tr>";
-            $diagnostic .=  "<tr><td>chatEnabled  </td><td>$this->chatEnabled         </td></tr>";
+
             $diagnostic .=  "<tr><td>loggedin  </td><td> $this->loggedin        </td></tr>";
             $diagnostic .=  "<tr><td>Password Encryption  </td><td> $this->encryptPW        </td></tr>";
             $diagnostic .=  "<tr><td>User Table Entity Diagnostics  </td><td>$this->userTableDiagnostics       </td></tr>";

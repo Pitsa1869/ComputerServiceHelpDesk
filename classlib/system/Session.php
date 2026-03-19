@@ -85,11 +85,7 @@ class Session {
      */
     private $loginTimestamp;  
     
-    /**
-     *
-     * @var boolean $chatEnabled TRUE if chat function (AJAX) is enabled
-     */
-    private $chatEnabled;      
+      
    
 
     /**
@@ -146,13 +142,7 @@ class Session {
           }
           
           
-        if (isset($_SESSION['chatEnabled'])){
-            $this->chatEnabled=$_SESSION['chatEnabled'];
-        }
-        else{
-          $_SESSION['chatEnabled'] = FALSE;
-          $this->chatEnabled=FALSE;
-          }
+
          
         if (isset($_SESSION['loginAttempts'])){
             $this->loginAttempts=$_SESSION['loginAttempts'];
@@ -283,13 +273,7 @@ class Session {
     public function setUserType($userType){$this->userType=$userType;$_SESSION['userType'] =$userType;} 
 
     
-    /**
-     * 
-     * Sets the chat enabled state  property and saves in the $_SESSION superglobal array
-     * 
-     * @param boolean $state The chat enabled state
-     */
-    public function setChatEnabledState($state){$this->chatEnabled=$state;$_SESSION['chatEnabled']=$state;}
+
 
     
     /**
@@ -319,12 +303,7 @@ class Session {
     public function getLoggedinState(){return $this->loggedin;}
 
 
-     /**
-     * Returns the state of the chatEnabled property. TRUE if chatEnabled is set. 
-     *  
-     * @return boolean
-     */     
-    public function getChatEnabledState(){return $this->chatEnabled;}
+
 
      /**
      * Returns the current user's  ID
@@ -388,7 +367,7 @@ class Session {
                     $diagnostic .= '<tr><th>PROPERTY</th><th>VALUE</th></tr>';                        
                     $diagnostic .= "<tr><td>sessionID  </td>   <td>$this->sessionID    </td></tr>";
                     $diagnostic .= "<tr><td>loggedin  </td>   <td>$this->loggedin    </td></tr>";
-                    $diagnostic .= "<tr><td>chatEnabled  </td>   <td>$this->chatEnabled    </td></tr>";
+
                     $diagnostic .= "<tr><td>userID  </td>   <td>$this->userID    </td></tr>";
                     $diagnostic .= "<tr><td>userFirstName  </td>   <td>$this->userFirstName    </td></tr>";                   
                     $diagnostic .= "<tr><td>userType  </td>   <td>$this->userType    </td></tr>";

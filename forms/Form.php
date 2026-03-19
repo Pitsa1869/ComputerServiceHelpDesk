@@ -256,28 +256,7 @@ public static function form_register_customer($countyTable,$pageID){
         
     
     
-/**
- * Generates a HTML form for entering a chat message and optionally specifying a recipient. 
- * 
- * 
- * @param string $pageID The pageID of the page which will be used to process the login form.
- * @return string String containing the generated form.
- */    
-public static function form_add_msg($pageID){
-        $form='<div class="container-fluid">';
-        $form.='<form method="post" action="index.php?pageID='.$pageID.'">';
-
-        $form.='<div class="form-group">';
-        
-        $form.='<label for="message">Enter a Message</label><textarea class="form-control" id="message" name="message" rows="3" style="resize:vertical"></textarea> ';
-                
-        $form.='<label for="msgTo">Addressed To (enter ID or leave blank for ALL)</label><input type="text" class="form-control" id="msgTo" name="msgTo" >';
-        $form.='</div> ';
-        $form.='<button type="submit" class="btn btn-default" value="TRUE" name="btnAddMsg">Submit Message</button>';
-        $form.='</form>';
-        $form.='</div>';
-        return $form;
-}      
+      
 
     
 /**

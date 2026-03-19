@@ -50,9 +50,7 @@ class CustomerMessages extends PanelModel{
             case "messages":
                 $this->panelHead_1='<h3>Messages</h3>';
                 break;
-            case "livechat":
-                $this->panelHead_1='<h3>Live Chat</h3>';
-                break;
+
             case "deleteMsg":
                 $this->panelHead_1='<h3>Delete - My Messages</h3>';
                 break;
@@ -76,9 +74,7 @@ class CustomerMessages extends PanelModel{
             case "messages":
                 $this->panelContent_1='This is tickets sub-menu. Select an option from the top menu bar';
                 break;
-            case "livechat":
-                $this->panelContent_1= Form::form_add_msg($this->pageID);
-                break;
+
             case "viewMsgs":
                 $table=new ticketsTable($this->db);
                 $rs=$table->getUserMessages($this->user->getUserID());
@@ -109,9 +105,7 @@ class CustomerMessages extends PanelModel{
                 $this->panelContent_1.= HelperHTML::generateSelectTABLE($rs,'msgID',$this->pageID,'Delete');
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;                
-            case "sendMsg":
-                $this->panelContent_1= Form::form_add_msg($this->pageID);
-                break;
+
             default:
                 $this->panelContent_1='Messages';
                 break;            
@@ -126,9 +120,7 @@ class CustomerMessages extends PanelModel{
             case "messages":
                 $this->panelHead_2='<h3>Messages</h3>';
                 break;
-            case "livechat":
-                $this->panelHead_2='<h3>Live Chat</h3>';
-                break;
+
             case "viewMsgs":
                 $this->panelHead_2='<h3>View Messages</h3>';
                 break;
@@ -152,39 +144,7 @@ class CustomerMessages extends PanelModel{
             case "messages":
                 $this->panelContent_2='This messages sub-menu illustrates a number of different implementations of messaging between users - including live chat which utilises AJAX';
                 break;
-            case "livechat":
-                if (isset($this->postArray['btnAddMsg'])){
 
-
-                    //set the message recipient to ALL if its not specified in the form
-                    if (isset($this->postArray['msgTo']))  {$msgRecipient=$this->postArray['msgTo'];} else {$msgRecipient='ALL';}
-
-                    $table=new ticketsTable($this->db);
-
-                    //make sure the user has not addressed the message to their own ID
-                    if ($msgRecipient===$this->user->getUserID()) {
-                        $this->panelContent_2='<div id="chat">Chat messages will appear here if chat is enabled</div>';
-                        $this->panelContent_2.='Message not sent - You cant address a message to yourself!';      
-                    }
-                    else { //a legitimate recipient is specified - add the message to the chatMessage table
-                        $table=new ticketsTable($this->db);
-                        
-                        if($table->addRecord($this->postArray,$this->user)){
-                            $this->panelContent_2='<div id="chat">Chat messages will appear here if chat is enabled</div>';
-                            $this->panelContent_2.='<hr>Message Sent Successfully ';
-                        }
-                        else{ //something went wrong
-                            $this->panelContent_2='<div id="chat">Chat messages will appear here if chat is enabled</div>';
-                            $this->panelContent_2.='Unable to update record';
-                        }       
-                    }                    
-
-                }
-                else{
-                    $this->panelContent_2='<div id="chat">Chat messages will appear here if chat is enabled</div>';
-                }
-
-                break;
             case "viewMsgs":
                 $this->panelContent_2='View Messages';
                 break;
@@ -253,9 +213,7 @@ class CustomerMessages extends PanelModel{
             case "messages":
                 $this->panelHead_3='<h3>Messages</h3>';
                 break;
-            case "livechat":
-                $this->panelHead_3='<h3>Live Chat</h3>';
-                break;
+
             case "viewMsgs":
                 $this->panelHead_3='<h3>View Messages</h3>';
                 break;
@@ -276,9 +234,7 @@ class CustomerMessages extends PanelModel{
             case "messages":
                 $this->panelContent_3='This messages sub-menu illustrates a number of different implementations of messaging between users - including live chat which utilises AJAX';
                 break;
-            case "livechat":
-                $this->panelContent_3='Live chat content';
-                break;
+
             case "viewMsgs":
                 $this->panelContent_3='View Messages';
                 break;

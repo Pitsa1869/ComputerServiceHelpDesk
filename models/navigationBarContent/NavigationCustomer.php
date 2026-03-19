@@ -107,15 +107,6 @@ class NavigationCustomer implements NavigationInterface {
                     //Messages
                     case "messages":
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=livechat">Live Chat</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=viewMsgs">View</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=sendMsg">Send</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=deleteMsg">Delete</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
-                        break;
-                    case "livechat":
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
-                        //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=livechat">Live Chat</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=viewMsgs">View</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=sendMsg">Send</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=deleteMsg">Delete</a></li>';
@@ -123,7 +114,6 @@ class NavigationCustomer implements NavigationInterface {
                         break;
                     case "viewMsgs":
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=livechat">Live Chat</a></li>';
                         //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=viewMsgs">View</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=sendMsg">Send</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=deleteMsg">Delete</a></li>';
@@ -131,7 +121,6 @@ class NavigationCustomer implements NavigationInterface {
                         break;
                     case "sendMsg":
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=livechat">Live Chat</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=viewMsgs">View</a></li>';
                         //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=sendMsg">Send</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=deleteMsg">Delete</a></li>';
@@ -139,7 +128,6 @@ class NavigationCustomer implements NavigationInterface {
                         break;
                     case "deleteMsg":
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=livechat">Live Chat</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=viewMsgs">View</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=sendMsg">Send</a></li>';
                         //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=deleteMsg">Delete</a></li>';

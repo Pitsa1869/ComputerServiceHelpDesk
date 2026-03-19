@@ -21,6 +21,9 @@
   * @var array $data Array containing page content elements. 
   * 
   */
+if (!isset($data)) {
+    $data = array();
+}
 extract($data);
 
 ?>
@@ -46,8 +49,7 @@ extract($data);
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
-<!--If chat function is enabled - include the javascript that contains the AJAX chat implementation -->
-<?php	if(CHAT_ENABLED){include("javascript/chat.php");}?>
+
 <!--apply any local styles if required -->
 
 <style type="text/css">
@@ -57,8 +59,7 @@ extract($data);
 </style>
 </head> 
 
-<!--If chat function is enabled - start the AJAX functions-->
-<?php	if(CHAT_ENABLED){echo '<body onload="doTimer()">';}else {echo '<body>';}?>
+<body>
     
 <div class="container">
 

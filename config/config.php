@@ -40,37 +40,7 @@ define ('ENCRYPT_PW',TRUE);  //True if Passwords are hash encrypted
  */
 define ('PAGE_TITLE','DDA Framework'); //site wide page title (tab label at top of web page)
 
-//AJAX Configuration - read the SETUP INSTRUCTIONS
 
-/**
- * 
- * @global Boolean CHAT_ENABLED True if AJAX Chat  is enabled (Part of AJAX live chat configuration)
- * 
- */
-define ('CHAT_ENABLED',FALSE);  //True if AJAX Chat  is enabled
-
-
-/**
- * 
- * @var String $serverIP_address - IP address of the Apache Web Server (Part of AJAX live chat configuration)
- * 
- */
-$serverIP_address='192.168.1.8:80';  //change to network IP address and port  of the Apache Server 
-
-/**
- * 
- * @var String $root_path - document root path of the Apache Web Server (Part of AJAX live chat configuration)
- * 
- */
-$root_path='k00999999/Framework_16/'; //change to correct path from htdocs folder to the default page (usually index.php) of this web application
-
-
-/**
- * 
- * @global String __THIS_URI_ROOT - Full URI of this application on the Apache Web Server (Part of AJAX live chat configuration)
- * 
- */
-define ('__THIS_URI_ROOT','http://'.$serverIP_address.'/'.$root_path);  //Define root URL folder for this website
 
 
 //Note no PHP end tag in this file : 
