@@ -89,7 +89,7 @@ include_once 'models/panelContent/AdminManageUsers.php';
 //Page models CUSTOMER
 include_once 'models/panelContent/CustomerHome.php';
 include_once 'models/panelContent/CustomerMyAccount.php';
-include_once 'models/panelContent/CustomerMessages.php';
+include_once 'models/panelContent/CustomerTickets.php';
 
 //Page models TECHNICIAN
 include_once 'models/panelContent/TechnicianHome.php';

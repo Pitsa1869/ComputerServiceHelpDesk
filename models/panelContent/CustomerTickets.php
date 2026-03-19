@@ -1,15 +1,15 @@
 <?php
 /**
-* This file contains the CustomerMessages Class
+* This file contains the CustomerTickets Class
 * 
 */
 
 
 /**
- * CustomerMessages is an extended PanelModel Class
+ * CustomerTickets is an extended PanelModel Class
  * 
  * The purpose of this class is to generate HTML view panel headings and template content
- * for a <em><b>CUSTOMER user messages</b></em>  page.  The content generated is intended for 3 panel
+ * for a <em><b>CUSTOMER user tickets</b></em>  page.  The content generated is intended for 3 panel
  * view layouts. 
  * 
  * @author gerry.guinane
@@ -18,8 +18,7 @@
 
 
 
-class CustomerMessages extends PanelModel{
-
+class CustomerTickets extends PanelModel{
 
     /**
     * Constructor Method
@@ -35,7 +34,7 @@ class CustomerMessages extends PanelModel{
     * @param String $pageID The currently selected Page ID
     */   
     function __construct($user,$db,$postArray,$pageTitle,$pageHead,$pageID){  
-        $this->modelType='CustomerMessages';
+        $this->modelType='CustomerTickets';
         parent::__construct($user,$db,$postArray,$pageTitle,$pageHead,$pageID);
     } 
 
@@ -47,17 +46,17 @@ class CustomerMessages extends PanelModel{
     public function setPanelHead_1(){
         switch ($this->pageID) {
 
-            case "messages":
-                $this->panelHead_1='<h3>Messages</h3>';
+            case "tickets":
+                $this->panelHead_1='<h3>Tickets</h3>';
                 break;
 
             case "deleteMsg":
                 $this->panelHead_1='<h3>Delete - My Messages</h3>';
                 break;
-            case "viewMsgs":
+            case "viewTickets":
                 $this->panelHead_1='<h3>View my Tickets</h3>';
                 break;
-            case "sendMsg":
+            case "createTicket":
                 $this->panelHead_1='<h3>Send Messages</h3>';
                 break;
             default:
@@ -71,11 +70,11 @@ class CustomerMessages extends PanelModel{
     */      
     public function setPanelContent_1(){
         switch ($this->pageID) {
-            case "messages":
+            case "tickets":
                 $this->panelContent_1='This is tickets sub-menu. Select an option from the top menu bar';
                 break;
 
-            case "viewMsgs":
+            case "viewTickets":
                 $table=new ticketsTable($this->db);
                 $rs=$table->getUserMessages($this->user->getUserID());
                 $this->panelContent_1= HelperHTML::generateTABLE($rs);
@@ -117,14 +116,14 @@ class CustomerMessages extends PanelModel{
      */
     public function setPanelHead_2(){ 
         switch ($this->pageID) {
-            case "messages":
+            case "tickets":
                 $this->panelHead_2='<h3>Messages</h3>';
                 break;
 
-            case "viewMsgs":
+            case "viewTickets":
                 $this->panelHead_2='<h3>View Messages</h3>';
                 break;
-            case "sendMsg":
+            case "createTicket":
                 $this->panelHead_2='<h3>Send Messages</h3>';
                 break;
             case "deleteMsg":
@@ -141,14 +140,14 @@ class CustomerMessages extends PanelModel{
     */      
     public function setPanelContent_2(){
         switch ($this->pageID) {
-            case "messages":
-                $this->panelContent_2='This messages sub-menu illustrates a number of different implementations of messaging between users - including live chat which utilises AJAX';
+            case "tickets":
+                $this->panelContent_2='This tickets sub-menu illustrates a number of different implementations of messaging between users - including live chat which utilises AJAX';
                 break;
 
-            case "viewMsgs":
+            case "viewTickets":
                 $this->panelContent_2='View Messages';
                 break;
-            case "sendMsg":
+            case "createTicket":
                 if (isset($this->postArray['btnAddMsg'])){
 
 
@@ -186,7 +185,7 @@ class CustomerMessages extends PanelModel{
                     $table=new ticketsTable($this->db);
                     if($table->deleteRecordbyID($this->postArray['recordSelected'])){
                         $this->panelContent_2='Message (msgID='.$this->postArray['recordSelected'].') has been deleted';
-                        $this->setPanelContent_1(); //update panel 1 content to show updated table of messages
+                        $this->setPanelContent_1(); //update panel 1 content to show updated table of tickets
 
                     }
                     else{
@@ -210,14 +209,14 @@ class CustomerMessages extends PanelModel{
      */
     public function setPanelHead_3(){ 
         switch ($this->pageID) {
-            case "messages":
+            case "tickets":
                 $this->panelHead_3='<h3>Messages</h3>';
                 break;
 
-            case "viewMsgs":
+            case "viewTickets":
                 $this->panelHead_3='<h3>View Messages</h3>';
                 break;
-            case "sendMsg":
+            case "createTicket":
                 $this->panelHead_3='<h3>Send Messages</h3>';
                 break;
             default:
@@ -231,14 +230,14 @@ class CustomerMessages extends PanelModel{
     */      
     public function setPanelContent_3(){//set the panel 2 content
         switch ($this->pageID) {
-            case "messages":
-                $this->panelContent_3='This messages sub-menu illustrates a number of different implementations of messaging between users - including live chat which utilises AJAX';
+            case "tickets":
+                $this->panelContent_3='This tickets sub-menu illustrates a number of different implementations of messaging between users - including live chat which utilises AJAX';
                 break;
 
-            case "viewMsgs":
+            case "viewTickets":
                 $this->panelContent_3='View Messages';
                 break;
-            case "sendMsg":
+            case "createTicket":
                 $this->panelContent_3='Send Messages';
                 break;
             default:

@@ -114,9 +114,9 @@ class CustomerController extends Controller  {
                 
                   break;
                 
-                 case "messages":
+                 case "tickets":
                     //create objects to generate view content
-                    $contentModel = new CustomerMessages($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
+                    $contentModel = new CustomerTickets($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
                     $navigationModel = new NavigationCustomer($this->user, $this->getArray['pageID']);
                     array_push($this->controllerObjects,$navigationModel,$contentModel);
                     $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models 
@@ -125,9 +125,9 @@ class CustomerController extends Controller  {
                     include_once 'views/view_navbar_1_panel.php';  //load the view   
                     break;
 
-                case "viewMsgs":
+                case "viewTickets":
                     //create objects to generate view content
-                    $contentModel = new CustomerMessages($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
+                    $contentModel = new CustomerTickets($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
                     $navigationModel = new NavigationCustomer($this->user, $this->getArray['pageID']);
                     array_push($this->controllerObjects,$navigationModel,$contentModel);
                     $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
@@ -135,9 +135,9 @@ class CustomerController extends Controller  {
                     //update the view
                     include_once 'views/view_navbar_1_panel.php';  //load the view   
                     break;
-                case "sendMsg":
+                case "createTicket":
                     //create objects to generate view content
-                    $contentModel = new CustomerMessages($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
+                    $contentModel = new CustomerTickets($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
                     $navigationModel = new NavigationCustomer($this->user, $this->getArray['pageID']);
                     array_push($this->controllerObjects,$navigationModel,$contentModel);
                     $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
@@ -147,7 +147,7 @@ class CustomerController extends Controller  {
                     break;                
                 case "deleteMsg":
                     //create objects to generate view content
-                    $contentModel = new CustomerMessages($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
+                    $contentModel = new CustomerTickets($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
                     $navigationModel = new NavigationCustomer($this->user, $this->getArray['pageID']);
                     array_push($this->controllerObjects,$navigationModel,$contentModel);
                     $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
