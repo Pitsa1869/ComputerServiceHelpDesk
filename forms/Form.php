@@ -276,5 +276,21 @@ public static function form_confirm($pageID,$btnText,$choice){
 }    
    
 
+/**
+ * Generates a HTML Ticket Creation form
+ * 
+ * @param string $pageID The pageID of the page which will be used to process the login form. 
+ * @return string String containing the generated form.
+ */    
+public static function form_create_ticket($pageID){
+        $form='<form method="post" action="index.php?pageID='.$pageID.'">';
+        $form.='<div class="form-group">';
+        $form.='<label for="topic">Topic</label><input required type="text" class="form-control" id="topic" name="topic" >';
+        $form.='<label for="description">Description</label><textarea required type="textarea" class="form-control" id="description" name="description" style="height: 500px;"></textarea>';
+        $form.='</div> ';
+        $form.='<button type="submit" class="btn btn-default" value="TRUE" name="btnCreateTicket">Submit Ticket</button>';
+        $form.='</form>';
+        return $form;
+}    
 
 }

@@ -118,24 +118,20 @@ class ticketsTable extends TableEntity
         //get the values entered in the registration form contained in the $postArray argument     
         extract($postArray);
 
-        //add escape to special characters
-        $message = addslashes($message);
-        $msgTo = addslashes($msgTo);
-        $msgTo = strtolower($msgTo);
+
 
         //user data
-        $userType = $user->getUserType();
         $userID = $user->getUserID();
 
+        // ticket data
+        $topic = $postArray['topic'];
+        $ticketText = $postArray['description'];    
         //Note - this function does not validate that the $msgTo user  ID is valid. 
 
-        //check if $msgTo is empty if it is - set it to ALL recipients
-        if (!$msgTo) {
-            $msgTo = 'ALL';
-        }
+
 
         //construct the INSERT SQL
-        $this->SQL = "INSERT INTO tickets (ticketText,ticketAuthorID,userType,msgTo) VALUES ('$message','$userID','$userType','$msgTo')";
+        $this->SQL = "INSERT INTO tickets (topic,ticketText,ticketAuthorID) VALUES ('$topic','$ticketText','$userID')";
 
         //execute the query using a try catch 
         try {

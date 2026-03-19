@@ -54,7 +54,7 @@ class CustomerTickets extends PanelModel{
                 $this->panelHead_1='<h3>View my Tickets</h3>';
                 break;
             case "createTicket":
-                $this->panelHead_1='<h3>Send Messages</h3>';
+                $this->panelHead_1='<h3>Create Ticket Form</h3>';
                 break;
             case "closedTickets":
                 $this->panelHead_1='<h3>Closed Tickets</h3>';
@@ -87,7 +87,13 @@ class CustomerTickets extends PanelModel{
                 $this->panelContent_1= HelperHTML::generateTABLE($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;
-
+            
+            case "createTicket":
+                {
+                    $this->panelContent_1=Form::form_create_ticket($this->pageID);  
+                    break;
+                }
+                break;
             default:
                 $this->panelContent_1='Messages';
                 break;            
@@ -107,7 +113,7 @@ class CustomerTickets extends PanelModel{
                 $this->panelHead_2='<h3>View Messages</h3>';
                 break;
             case "createTicket":
-                $this->panelHead_2='<h3>Send Messages</h3>';
+                $this->panelHead_2='<h3>Instructions</h3>';
                 break;
             case "closedTickets":
                 $this->panelHead_2='<h3>Closed Messages</h3>';
@@ -132,36 +138,21 @@ class CustomerTickets extends PanelModel{
                 $this->panelContent_2='View Messages';
                 break;
             case "createTicket":
-                if (isset($this->postArray['btnAddMsg'])){
-
-
-                    //set the message recipient to ALL if its not specified in the form
-                    if (isset($this->postArray['msgTo'])) 
-                    {
-                        $msgRecipient=$this->postArray['msgTo']; 
-                    }
-                    else 
-                    {
-                            $msgRecipient='ALL';
-                    }
-
-                    //make sure the user has not addressed the message to their own ID
-                    if ($msgRecipient===$this->user->getUserID()) { $this->panelContent_2='You cant address a message to yourself!'; }
-                    else { //a legitimate recipient is specified - add the message to the chatMessage table
+                {
+                    if(isset($this->postArray['btnCreateTicket'])){
                         $table=new ticketsTable($this->db);
-                        //if($table->addRecord($this->postArray,$this->user->getUserID(),$this->user->getUserType(),$msgRecipient)){
-                        if($table->addRecord($this->postArray,$this->user,$msgRecipient)){
-                            $this->panelContent_2='Message Sent ';
+                        $result=$table->addRecord($this->postArray,$this->user);
+                        if($result){
+                            $this->panelContent_2='<h4 style="color:green">Your ticket has been created successfully</h4>';
                         }
                         else{
-                            $this->panelContent_2='Unable to update record';
-                        }       
+                            $this->panelContent_2='<h4 style="color:red">There was a problem creating your ticket. Please try again later.</h4>';
+                        }
                     }
-
-
-                }
-                else{
-                    $this->panelContent_2='Send Messages'; 
+                    else{
+                        $this->panelContent_2='Enter the topic and description for your ticket and click submit to create a new ticket. 
+                        <br><br> A technician will respond to your ticket as soon as possible. You can view the status of your tickets by clicking the view menu option.';
+                    }
                 }
                 break;
             case "closedTickets":
@@ -188,7 +179,7 @@ class CustomerTickets extends PanelModel{
                 $this->panelHead_3='<h3>View Messages</h3>';
                 break;
             case "createTicket":
-                $this->panelHead_3='<h3>Send Messages</h3>';
+                $this->panelHead_3='<h3>Create Ticket</h3>';
                 break;
             case "closedTickets":
                 $this->panelHead_3='<h3>Closed Messages</h3>';
@@ -212,7 +203,7 @@ class CustomerTickets extends PanelModel{
                 $this->panelContent_3='View Messages';
                 break;
             case "createTicket":
-                $this->panelContent_3='Send Messages';
+                $this->panelContent_3='Create Ticket';
                 break;
             case "closedTickets":
                 $this->panelContent_3='Closed Messages';
