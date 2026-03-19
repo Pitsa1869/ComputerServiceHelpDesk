@@ -50,9 +50,6 @@ class CustomerTickets extends PanelModel{
                 $this->panelHead_1='<h3>Tickets</h3>';
                 break;
 
-            case "deleteMsg":
-                $this->panelHead_1='<h3>Delete - My Messages</h3>';
-                break;
             case "viewTickets":
                 $this->panelHead_1='<h3>View my Tickets</h3>';
                 break;
@@ -80,30 +77,6 @@ class CustomerTickets extends PanelModel{
                 $this->panelContent_1= HelperHTML::generateTABLE($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;
-            case "deleteMsg":
-                $this->panelContent_1='';
-
-                if (isset($this->postArray['btnRecordSelected'])){
-                    $table=new ticketsTable($this->db);
-                    if($table->deleteRecordbyID($this->postArray['recordSelected'])){
-                        $this->panelContent_1.='Message (msgID='.$this->postArray['recordSelected'].') has been deleted';
-
-                    }
-                    else{
-                        $this->panelContent_1.='Unable to delete selected record';
-                    }
-                    array_push($this->panelModelObjects,$table); #for diagnostic purposes
-                }
-                else{
-                    $this->panelContent_1.='Select a message to delete'; 
-                }                
-                $this->panelContent_1.='<hr>';
-
-                $table=new ticketsTable($this->db);
-                $rs=$table->getUserAuthoredMessages($this->user->getUserID());
-                $this->panelContent_1.= HelperHTML::generateSelectTABLE($rs,'msgID',$this->pageID,'Delete');
-                array_push($this->panelModelObjects,$table); #for diagnostic purposes
-                break;                
 
             default:
                 $this->panelContent_1='Messages';
@@ -126,9 +99,7 @@ class CustomerTickets extends PanelModel{
             case "createTicket":
                 $this->panelHead_2='<h3>Send Messages</h3>';
                 break;
-            case "deleteMsg":
-                $this->panelHead_2='<h3>Delete My Messages</h3>';
-                break;                
+
             default:
                 $this->panelHead_2='<h3>Messages</h3>';
                 break;            
@@ -180,22 +151,6 @@ class CustomerTickets extends PanelModel{
                     $this->panelContent_2='Send Messages'; 
                 }
                 break;
-            case "deleteMsg":
-                if (isset($this->postArray['btnRecordSelected'])){
-                    $table=new ticketsTable($this->db);
-                    if($table->deleteRecordbyID($this->postArray['recordSelected'])){
-                        $this->panelContent_2='Message (msgID='.$this->postArray['recordSelected'].') has been deleted';
-                        $this->setPanelContent_1(); //update panel 1 content to show updated table of tickets
-
-                    }
-                    else{
-                        $this->panelContent_2='Unable to delete selected record';
-                    }
-                }
-                else{
-                    $this->panelContent_2='Select a message to delete'; 
-                }
-                break;    
 
             default:
                 $this->panelContent_2='Messages';

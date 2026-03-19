@@ -109,28 +109,18 @@ class NavigationCustomer implements NavigationInterface {
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=viewTickets">View</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=createTicket">Create</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=deleteMsg">Delete</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
                         break;
                     case "viewTickets":
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
                         //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=viewTickets">View</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=createTicket">Create</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=deleteMsg">Delete</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
                         break;
                     case "createTicket":
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=viewTickets">View</a></li>';
                         //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=createTicket">Create</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=deleteMsg">Delete</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
-                        break;
-                    case "deleteMsg":
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=viewTickets">View</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=createTicket">Create</a></li>';
-                        //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=deleteMsg">Delete</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
                         break;                                            
                     default:
