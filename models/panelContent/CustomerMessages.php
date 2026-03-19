@@ -80,7 +80,7 @@ class CustomerMessages extends PanelModel{
                 $this->panelContent_1= Form::form_add_msg($this->pageID);
                 break;
             case "viewMsgs":
-                $table=new ChatMsgTable($this->db);
+                $table=new ticketsTable($this->db);
                 $rs=$table->getUserMessages($this->user->getUserID());
                 $this->panelContent_1= HelperHTML::generateTABLE($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
@@ -89,7 +89,7 @@ class CustomerMessages extends PanelModel{
                 $this->panelContent_1='';
 
                 if (isset($this->postArray['btnRecordSelected'])){
-                    $table=new ChatMsgTable($this->db);
+                    $table=new ticketsTable($this->db);
                     if($table->deleteRecordbyID($this->postArray['recordSelected'])){
                         $this->panelContent_1.='Message (msgID='.$this->postArray['recordSelected'].') has been deleted';
 
@@ -104,7 +104,7 @@ class CustomerMessages extends PanelModel{
                 }                
                 $this->panelContent_1.='<hr>';
 
-                $table=new ChatMsgTable($this->db);
+                $table=new ticketsTable($this->db);
                 $rs=$table->getUserAuthoredMessages($this->user->getUserID());
                 $this->panelContent_1.= HelperHTML::generateSelectTABLE($rs,'msgID',$this->pageID,'Delete');
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
@@ -159,7 +159,7 @@ class CustomerMessages extends PanelModel{
                     //set the message recipient to ALL if its not specified in the form
                     if (isset($this->postArray['msgTo']))  {$msgRecipient=$this->postArray['msgTo'];} else {$msgRecipient='ALL';}
 
-                    $table=new ChatMsgTable($this->db);
+                    $table=new ticketsTable($this->db);
 
                     //make sure the user has not addressed the message to their own ID
                     if ($msgRecipient===$this->user->getUserID()) {
@@ -167,7 +167,7 @@ class CustomerMessages extends PanelModel{
                         $this->panelContent_2.='Message not sent - You cant address a message to yourself!';      
                     }
                     else { //a legitimate recipient is specified - add the message to the chatMessage table
-                        $table=new ChatMsgTable($this->db);
+                        $table=new ticketsTable($this->db);
                         
                         if($table->addRecord($this->postArray,$this->user)){
                             $this->panelContent_2='<div id="chat">Chat messages will appear here if chat is enabled</div>';
@@ -205,7 +205,7 @@ class CustomerMessages extends PanelModel{
                     //make sure the user has not addressed the message to their own ID
                     if ($msgRecipient===$this->user->getUserID()) { $this->panelContent_2='You cant address a message to yourself!'; }
                     else { //a legitimate recipient is specified - add the message to the chatMessage table
-                        $table=new ChatMsgTable($this->db);
+                        $table=new ticketsTable($this->db);
                         //if($table->addRecord($this->postArray,$this->user->getUserID(),$this->user->getUserType(),$msgRecipient)){
                         if($table->addRecord($this->postArray,$this->user,$msgRecipient)){
                             $this->panelContent_2='Message Sent ';
@@ -223,7 +223,7 @@ class CustomerMessages extends PanelModel{
                 break;
             case "deleteMsg":
                 if (isset($this->postArray['btnRecordSelected'])){
-                    $table=new ChatMsgTable($this->db);
+                    $table=new ticketsTable($this->db);
                     if($table->deleteRecordbyID($this->postArray['recordSelected'])){
                         $this->panelContent_2='Message (msgID='.$this->postArray['recordSelected'].') has been deleted';
                         $this->setPanelContent_1(); //update panel 1 content to show updated table of messages

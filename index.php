@@ -56,7 +56,7 @@ include ('classlib/helperClasses/HelperHTML.php');
 //Database Table Entities
 include_once 'classlib/entities/UserTable.php';
 include_once 'classlib/entities/UserTypeTable.php';
-include_once 'classlib/entities/ChatMsgTable.php';
+include_once 'classlib/entities/TicketTable.php';
 
 
 //Controller Clases for specific user types
