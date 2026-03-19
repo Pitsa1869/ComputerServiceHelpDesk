@@ -101,7 +101,41 @@ class ticketsTable extends TableEntity
      */
     public function getUserMessages($userID)
     {
-        $this->SQL = "SELECT ticketID,dateTimeStamp,ticketAuthorID,ticketText FROM tickets WHERE ticketAuthorID='$userID'";
+        $this->SQL = "SELECT ticketID as 'TicketID',dateTimeStamp as 'Date opened',ticketAuthorID as 'Author',ticketText as 'Description',status as 'Status' FROM tickets WHERE ticketAuthorID='$userID' AND status!='Closed'";
+
+        //execute the query using a try catch 
+        try {
+            $rs = $this->db->query($this->SQL);  //execute the query
+
+            if ($rs) {
+                if ($rs->num_rows >= 1) {  //this query should return 1 or more records
+                    return $rs;  //the resultset can be returned as it contains ONLY one record
+                } else {
+                    //no records returned for this query 
+                    return false;
+                }
+            } else {
+                //the query has not executed successfully
+                return false;
+            }
+        } catch (Exception $ex) {
+            //an exception has occurred - get the details for diagnostic purposes
+            $this->MySQLiErrorNr = $ex->getCode(); //get the exception number
+            $this->MySQLiErrorMsg = $ex->getMessage(); //get the exception error message
+            return false;
+        }
+    }
+
+    /**
+     * Performs a SELECT query to returns all closed messages for the specified user
+     *
+     * @param string $userID The user's unique ID
+     * 
+     * @return mixed Returns false on failure. For successful SELECT returns a mysqli_result object $rs
+     */
+    public function getUserClosedMessages($userID)
+    {
+        $this->SQL = "SELECT ticketID as 'TicketID',dateTimeStamp as 'Date opened',ticketAuthorID as 'Author',ticketText as 'Description',dateTimeClosed as 'Date closed' FROM tickets WHERE ticketAuthorID='$userID' AND status='Closed'";
 
         //execute the query using a try catch 
         try {

@@ -144,6 +144,16 @@ class CustomerController extends Controller  {
                     $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
                     //update the view
                     include_once 'views/view_navbar_2_panel.php';  //load the view   
+                    break;
+                case "closedTickets":
+                    //create objects to generate view content
+                    $contentModel = new CustomerTickets($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
+                    $navigationModel = new NavigationCustomer($this->user, $this->getArray['pageID']);
+                    array_push($this->controllerObjects,$navigationModel,$contentModel);
+                    $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
+                    $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
+                    //update the view
+                    include_once 'views/view_navbar_1_panel.php';  //load the view   
                     break;                 
                 
                 default:

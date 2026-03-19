@@ -56,6 +56,9 @@ class CustomerTickets extends PanelModel{
             case "createTicket":
                 $this->panelHead_1='<h3>Send Messages</h3>';
                 break;
+            case "closedTickets":
+                $this->panelHead_1='<h3>Closed Tickets</h3>';
+                break;
             default:
                 $this->panelHead_1='<h3>Messages</h3>';
                 break;
@@ -74,6 +77,13 @@ class CustomerTickets extends PanelModel{
             case "viewTickets":
                 $table=new ticketsTable($this->db);
                 $rs=$table->getUserMessages($this->user->getUserID());
+                $this->panelContent_1= HelperHTML::generateTABLE($rs);
+                array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                break;
+
+            case "closedTickets":
+                $table=new ticketsTable($this->db);
+                $rs=$table->getUserClosedMessages($this->user->getUserID());
                 $this->panelContent_1= HelperHTML::generateTABLE($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;
@@ -98,6 +108,9 @@ class CustomerTickets extends PanelModel{
                 break;
             case "createTicket":
                 $this->panelHead_2='<h3>Send Messages</h3>';
+                break;
+            case "closedTickets":
+                $this->panelHead_2='<h3>Closed Messages</h3>';
                 break;
 
             default:
@@ -151,6 +164,9 @@ class CustomerTickets extends PanelModel{
                     $this->panelContent_2='Send Messages'; 
                 }
                 break;
+            case "closedTickets":
+                $this->panelContent_2='Closed Messages';
+                break;
 
             default:
                 $this->panelContent_2='Messages';
@@ -174,6 +190,9 @@ class CustomerTickets extends PanelModel{
             case "createTicket":
                 $this->panelHead_3='<h3>Send Messages</h3>';
                 break;
+            case "closedTickets":
+                $this->panelHead_3='<h3>Closed Messages</h3>';
+                break;
             default:
                 $this->panelHead_3='<h3>Messages</h3>';
                 break;            
@@ -194,6 +213,9 @@ class CustomerTickets extends PanelModel{
                 break;
             case "createTicket":
                 $this->panelContent_3='Send Messages';
+                break;
+            case "closedTickets":
+                $this->panelContent_3='Closed Messages';
                 break;
             default:
                 $this->panelContent_3='Messages';
