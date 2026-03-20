@@ -39,46 +39,6 @@ class TicketDetails extends PanelModel {
 
         parent::__construct($user,$db,$postArray,$pageTitle,$pageHead,$pageID);
     } 
-    /**
-     * Set the Panel 2 heading 
-     */
-    public function setPanelHead_2(){ 
-        switch ($this->pageID) {
-            case "ticketDetails":  //sample menu item handler
-                $this->panelHead_2='<h3>Comments</h3>';
-                break;
-            default:  //sample DEFAULT menu item handler
-                $this->panelHead_2='<h3>Menu Item</h3>';
-                break;
-            }//end switch   
-    }  
-    
-    /**
-    * Set the Panel 2 text content 
-    */ 
-    public function setPanelContent_2(){
-        switch ($this->pageID) {
-            case "ticketDetails":  //sample menu item handler
-                $commentsTable = new commentsTable($this->db);
-                $ticketID = $_GET['TicketID'];  //get the ticketID from the URL query string  
-
-                if (isset($_POST['btnAddComment']) && !empty($_POST['comment'])) {
-                    $commentsTable = new commentsTable($this->db);
-                    $userID = $_SESSION['userID']; // или получить из User объекта
-                    $ticketID = $_GET['TicketID'];
-                    $commentsTable->addComment($ticketID, $userID, $_POST['comment']);
-                }
-                $rs = $commentsTable->getCommentsByTicketID($ticketID); 
-                $this->panelContent_2 = HelperHTML::generateCommentCards($rs,$ticketID);
-                $this->panelContent_2 .= Form::form_add_comment($this->pageID, $ticketID);
-                break;
-            default:  //sample DEFAULT menu item handler
-                $this->panelContent_2="Panel 2 content for \$pageID <b>DEFAULT</b> menu item is under construction.";
-                break;
-            }//end switch   
-    }
-
-
         /**
      * Set the Panel 1 heading 
      */
@@ -115,6 +75,52 @@ class TicketDetails extends PanelModel {
             }//end switch
         
     }        
+
+    /**
+     * Set the Panel 2 heading 
+     */
+    public function setPanelHead_2(){ 
+        switch ($this->pageID) {
+            case "ticketDetails":  //sample menu item handler
+                $this->panelHead_2='<h3>Comments</h3>';
+                break;
+            default:  //sample DEFAULT menu item handler
+                $this->panelHead_2='<h3>Menu Item</h3>';
+                break;
+            }//end switch   
+    }  
+    
+    /**
+    * Set the Panel 2 text content 
+    */ 
+    public function setPanelContent_2(){
+        switch ($this->pageID) {
+            case "ticketDetails":  //sample menu item handler
+                $commentsTable = new commentsTable($this->db);
+                $ticketsTable = new ticketsTable($this->db); 
+                $ticketID = $_GET['TicketID'];  //get the ticketID from the URL query string  
+
+                $status = $ticketsTable->getTicketStatus($ticketID);
+                
+                
+                if (isset($_POST['btnAddComment']) && !empty($_POST['comment'])) {
+                    $commentsTable = new commentsTable($this->db);
+                    $userID = $_SESSION['userID']; // или получить из User объекта
+                    $ticketID = $_GET['TicketID'];
+                    $commentsTable->addComment($ticketID, $userID, $_POST['comment']);
+                }
+                $rs = $commentsTable->getCommentsByTicketID($ticketID); 
+                $this->panelContent_2 = HelperHTML::generateCommentCards($rs,$ticketID);
+                if($status != 'Closed') 
+                {
+                $this->panelContent_2 .= Form::form_add_comment($this->pageID, $ticketID);
+                }
+                break;
+            default:  //sample DEFAULT menu item handler
+                $this->panelContent_2="Panel 2 content for \$pageID <b>DEFAULT</b> menu item is under construction.";
+                break;
+            }//end switch   
+    }
 
 
     /**

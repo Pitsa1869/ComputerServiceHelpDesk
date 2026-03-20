@@ -187,4 +187,41 @@ class ticketsTable extends TableEntity
             return false;
         }
     }
+
+    
+    /**
+     * Performs a SELECT query to return the status of a ticket by ticketID
+     *
+     * @param string $ticketID The ticket's unique ID
+     * 
+     * @return mixed Returns the status string on success, or false on failure
+     */
+    public function getTicketStatus($ticketID)
+    {
+        $this->SQL = "SELECT status FROM tickets WHERE ticketID='$ticketID'";
+
+        //execute the query using a try catch 
+        try {
+            $rs = $this->db->query($this->SQL);  //execute the query
+
+            if ($rs) {
+                if ($rs->num_rows == 1) {  //this query should return 1 record
+                    $row = $rs->fetch_assoc();
+                    return $row['status'];  //return the status value
+                } else {
+                    //no records returned for this query 
+                    return false;
+                }
+            } else {
+                //the query has not executed successfully
+                return false;
+            }
+        } catch (Exception $ex) {
+            //an exception has occurred - get the details for diagnostic purposes
+            $this->MySQLiErrorNr = $ex->getCode(); //get the exception number
+            $this->MySQLiErrorMsg = $ex->getMessage(); //get the exception error message
+            return false;
+        }
+    }
+    
 }
