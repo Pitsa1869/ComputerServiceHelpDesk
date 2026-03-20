@@ -31,7 +31,6 @@ session_start();
 //load application configuration
 include_once 'config/config.php';
 include_once 'config/database.php';
-
 //load class library
 //Interfaces
 include_once 'classlib/interfaces/PanelModelInterface.php';
@@ -57,7 +56,7 @@ include ('classlib/helperClasses/HelperHTML.php');
 include_once 'classlib/entities/UserTable.php';
 include_once 'classlib/entities/UserTypeTable.php';
 include_once 'classlib/entities/TicketTable.php';
-
+include_once 'classlib/entities/CommentsTable.php';
 
 //Controller Clases for specific user types
 include_once 'controllers/GeneralController.php';

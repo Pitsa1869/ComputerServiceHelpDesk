@@ -293,4 +293,36 @@ public static function form_create_ticket($pageID){
         return $form;
 }    
 
+
+/**
+ * Generates a HTML form for adding a comment to a ticket
+ * 
+ * @param string $pageID The pageID of the page which will be used to process the login form. 
+ * @return string String containing the generated form.
+ */
+public static function form_add_comment($pageID, $ticketID = ''){
+
+        $form = '<div class="comment-form" style="border: 2px solid #0066cc; border-radius: 5px; padding: 20px; margin-top: 20px; background-color: #f0f7ff;">';
+        
+        $form .= '<h4 style="color: #333; margin-top: 0;">Add a Comment</h4>';
+        
+        $form .= '<form action="index.php?pageID=' . htmlspecialchars($pageID) .'&TicketID=' . htmlspecialchars($ticketID) . '" method="post">';
+        
+        if (!empty($ticketID)) {
+            $form .= '<input type="hidden" name="ticketID" value="' . htmlspecialchars($ticketID) . '">';
+        }
+        
+        $form .= '<div style="margin-bottom: 15px;">';
+        $form .= '<textarea name="comment" style="width: 100%; min-height: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: Arial, sans-serif; font-size: 14px;" placeholder="Write your comment here..." required></textarea>';
+        $form .= '</div>';
+        
+        $form .= '<div style="text-align: right;">';
+        $form .= '<button type="submit" name="btnAddComment" value="TRUE" style="background-color: #0066cc; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: bold;">Comment</button>';
+        $form .= '</div>';
+        
+        $form .= '</form>';
+
+        return $form;
+}
+
 }

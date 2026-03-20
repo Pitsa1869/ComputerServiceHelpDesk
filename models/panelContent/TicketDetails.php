@@ -36,11 +36,50 @@ class TicketDetails extends PanelModel {
     */  
     function __construct($user,$db,$postArray,$pageTitle,$pageHead,$pageID){  
         $this->modelType='TicketDetails';
+
         parent::__construct($user,$db,$postArray,$pageTitle,$pageHead,$pageID);
     } 
-
+    /**
+     * Set the Panel 2 heading 
+     */
+    public function setPanelHead_2(){ 
+        switch ($this->pageID) {
+            case "ticketDetails":  //sample menu item handler
+                $this->panelHead_2='<h3>Comments</h3>';
+                break;
+            default:  //sample DEFAULT menu item handler
+                $this->panelHead_2='<h3>Menu Item</h3>';
+                break;
+            }//end switch   
+    }  
     
     /**
+    * Set the Panel 2 text content 
+    */ 
+    public function setPanelContent_2(){
+        switch ($this->pageID) {
+            case "ticketDetails":  //sample menu item handler
+                $commentsTable = new commentsTable($this->db);
+                $ticketID = $_GET['TicketID'];  //get the ticketID from the URL query string  
+
+                if (isset($_POST['btnAddComment']) && !empty($_POST['comment'])) {
+                    $commentsTable = new commentsTable($this->db);
+                    $userID = $_SESSION['userID']; // или получить из User объекта
+                    $ticketID = $_GET['TicketID'];
+                    $commentsTable->addComment($ticketID, $userID, $_POST['comment']);
+                }
+                $rs = $commentsTable->getCommentsByTicketID($ticketID); 
+                $this->panelContent_2 = HelperHTML::generateCommentCards($rs,$ticketID);
+                $this->panelContent_2 .= Form::form_add_comment($this->pageID, $ticketID);
+                break;
+            default:  //sample DEFAULT menu item handler
+                $this->panelContent_2="Panel 2 content for \$pageID <b>DEFAULT</b> menu item is under construction.";
+                break;
+            }//end switch   
+    }
+
+
+        /**
      * Set the Panel 1 heading 
      */
     public function setPanelHead_1(){
@@ -62,53 +101,21 @@ class TicketDetails extends PanelModel {
         
         switch ($this->pageID) {
             case "ticketDetails":  //sample menu item handler
-                $table = new ticketsTable($this->db);
-                   
-                $ticketID = $_GET['TicketID'];  //get the ticketID from the URL query string
-                $rs = $table->getTicketDetails($ticketID); 
-                $this->panelContent_1 = HelperHTML::generateTABLE($rs);
-                array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                {
+                    $ticketsTable = new ticketsTable($this->db);
+                    $ticketID = $_GET['TicketID'];  //get the ticketID from the URL query string  
+                    $rs = $ticketsTable->getTicketDetails($ticketID); 
+                }
+                $this->panelContent_1 = HelperHTML::generateTicketCard($rs);
+                array_push($this->panelModelObjects,$ticketsTable); #for diagnostic purposes
                 break;
             default:  //sample DEFAULT menu item handler
                 $this->panelContent_1="Panel 1 content for \$pageID <b>$this->pageID</b> menu item is under construction.";
                 break;
-            }//end switch   
+            }//end switch
         
     }        
 
-    /**
-     * Set the Panel 2 heading 
-     */
-    public function setPanelHead_2(){ 
-        switch ($this->pageID) {
-            case "menuItem1":  //sample menu item handler
-                $this->panelHead_2='<h3>Menu Item 1</h3>';
-                break;
-            case "menuItem2":  //sample menu item handler
-                $this->panelHead_2='<h3>Menu Item 2</h3>';
-                break;
-            default:  //sample DEFAULT menu item handler
-                $this->panelHead_2='<h3>Menu Item</h3>';
-                break;
-            }//end switch   
-    }  
-    
-    /**
-    * Set the Panel 2 text content 
-    */ 
-    public function setPanelContent_2(){
-        switch ($this->pageID) {
-            case "menuItem1":  //sample menu item handler
-                $this->panelContent_2="Panel 2 content for \$pageID <b>$this->pageID</b> menu item is under construction.";
-                break;
-            case "menuItem2":  //sample menu item handler
-                $this->panelContent_2="Panel 2 content for \$pageID <b>$this->pageID</b> menu item is under construction.";
-                break;
-            default:  //sample DEFAULT menu item handler
-                $this->panelContent_2="Panel 2 content for \$pageID <b>DEFAULT</b> menu item is under construction.";
-                break;
-            }//end switch   
-    }
 
     /**
      * Set the Panel 3 heading 

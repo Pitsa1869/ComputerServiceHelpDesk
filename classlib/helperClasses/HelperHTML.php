@@ -197,6 +197,113 @@ Class HelperHTML {
     }
     
     
+    /**
+     * Function that generates a HTML ticket card from a result set
+     * 
+     * @param mysqli_result $resultSet Result set from getTicketDetails() containing ticket data
+     * @return string HTML formatted ticket card
+     */
+    public static function generateTicketCard($resultSet) {
+        $html = '';
+        
+        if (!$resultSet || $resultSet->num_rows == 0) {
+            return '<div style="color: red;">No ticket data available</div>';
+        }
+        
+        // Get the first (and only) row from the result set
+        $row = $resultSet->fetch_assoc();
+        
+        $topic = $row['Topic'] ?? 'No topic';
+        $status = $row['Status'] ?? 'Unknown';
+        $datetime = $row['Date opened'] ?? 'No date';
+        $description = $row['Description'] ?? 'No description';
+        
+        // Header section with topic on left and status/datetime on right
+        $html .= '<div class="ticket-card" style="border: 1px solid #ddd; border-radius: 5px; padding: 20px; margin-bottom: 15px; background-color: #f9f9f9;">';
+        
+        // Top section with flexbox layout
+        $html .= '<div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; padding-bottom: 15px;">';
+        
+        // Topic on the left
+        $html .= '<div>';
+        $html .= '<h3 style="margin: 0; color: #333;">' . htmlspecialchars($topic) . '</h3>';
+        $html .= '</div>';
+        
+        // Status and datetime on the right
+        $html .= '<div style="text-align: right;">';
+        $html .= '<p style="margin: 0 0 5px 0; color: #666;">';
+        $html .= '<strong>Status:</strong> <span style="color: #0066cc;">' . htmlspecialchars($status) . '</span>';
+        $html .= '</p>';
+        $html .= '<p style="margin: 0; color: #999; font-size: 0.9em;">' . htmlspecialchars($datetime) . '</p>';
+        $html .= '</div>';
+        
+        $html .= '</div>';
+        
+        // Description section below
+        $html .= '<div>';
+        $html .= '<h4 style="color: #555; margin-bottom: 10px;">Description:</h4>';
+        $html .= '<p style="color: #666; line-height: 1.6; white-space: pre-wrap;">' . htmlspecialchars($description) . '</p>';
+        $html .= '</div>';
+        
+        $html .= '</div>';
+        
+        return $html;
+    }
+    
+    
+    /**
+     * Function that generates HTML comment cards from a result set
+     * 
+     * @param mysqli_result $resultSet Result set containing comment data
+     * @return string HTML formatted comment cards
+     */
+    public static function generateCommentCards($resultSet,$ticketID = '', $pageID = 'createComment') {
+        $html = '';
+        
+        if (!$resultSet || $resultSet->num_rows == 0) {
+            return '<div style="color: red;">No comment data available</div>';
+        }
+        
+        // Reset result set pointer to the beginning
+        $resultSet->data_seek(0);
+        
+        // Loop through all comments in the result set
+        while ($row = $resultSet->fetch_assoc()) {
+            $author = $row['Author'] ?? $row['UserName'] ?? 'Anonymous';
+            $datetime = $row['Date'] ?? $row['DatePosted'] ?? 'No date';
+            $comment = $row['Comment'] ?? $row['Content'] ?? $row['Message'] ?? 'No comment';
+            
+            // Comment card with author and date on top
+            $html .= '<div class="comment-card" style="border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 15px; background-color: #fafafa;">';
+            
+            // Top section with author and date
+            $html .= '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 10px;">';
+            
+            // Author on the left
+            $html .= '<div>';
+            $html .= '<p style="margin: 0; font-weight: bold; color: #333;">' . htmlspecialchars($author) . '</p>';
+            $html .= '</div>';
+            
+            // Date on the right
+            $html .= '<div>';
+            $html .= '<p style="margin: 0; color: #999; font-size: 0.85em;">' . htmlspecialchars($datetime) . '</p>';
+            $html .= '</div>';
+            
+            $html .= '</div>';
+            
+            // Comment content section
+            $html .= '<div>';
+            $html .= '<p style="color: #555; line-height: 1.6; margin: 0; white-space: pre-wrap;">' . htmlspecialchars($comment) . '</p>';
+            $html .= '</div>';
+            
+            $html .= '</div>';
+        }
+        
+        
+        
+        return $html;
+    }
+    
     
     
     

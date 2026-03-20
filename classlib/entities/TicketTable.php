@@ -37,7 +37,7 @@ class ticketsTable extends TableEntity
      */
     public function getUserMessages($userID)
     {
-        $this->SQL = "SELECT ticketID as 'TicketID',dateTimeStamp as 'Date opened',ticketAuthorID as 'Author',topic as 'Description',status as 'Status' FROM tickets WHERE ticketAuthorID='$userID' AND status!='Closed'";
+        $this->SQL = "SELECT ticketID as 'TicketID',dateTimeStamp as 'Date opened',topic as 'Description',status as 'Status' FROM tickets WHERE ticketAuthorID='$userID' AND status!='Closed'";
 
         //execute the query using a try catch 
         try {
@@ -163,7 +163,7 @@ class ticketsTable extends TableEntity
      */
     public function getTicketDetails($ticketID)
     {
-        $this->SQL = "SELECT ticketID as 'TicketID',dateTimeStamp as 'Date opened',ticketAuthorID as 'Author',topic as 'Description',status as 'Status' FROM tickets WHERE ticketID='$ticketID'";
+        $this->SQL = "SELECT ticketID as 'TicketID',dateTimeStamp as 'Date opened',topic as 'Topic',ticketText as 'Description',status as 'Status' FROM tickets WHERE ticketID='$ticketID'";
 
         //execute the query using a try catch 
         try {
