@@ -223,7 +223,7 @@ class CustomerTickets extends PanelModel{
      * @param mysqli_result $resultSet The result set containing ticket data
      * @return string HTML table with action buttons
      */
-    private function generateTicketsTableWithButtons($resultSet){
+    private function generateTicketsTableWithButtons($resultSet, $pageID = 'ticketDetails') {
         $table='';  //start with an empty string
         
         if($resultSet == false){
@@ -253,7 +253,7 @@ class CustomerTickets extends PanelModel{
             foreach($row as $value){
                 $table.=  "<td>$value</td>";
             }
-            $table.=  '<td><button class="btn btn-sm btn-primary" type="button">View</button></td>';
+            $table.=  '<td><a href="'.$_SERVER['PHP_SELF'].'?pageID='.$pageID.'"><button class="btn btn-sm btn-primary" type="button">View</button></a></td>';
             $table.=  '</tr>';
         }
         $table.=  '</table>';
