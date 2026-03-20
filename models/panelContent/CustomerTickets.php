@@ -77,14 +77,14 @@ class CustomerTickets extends PanelModel{
             case "viewTickets":
                 $table=new ticketsTable($this->db);
                 $rs=$table->getUserMessages($this->user->getUserID());
-                $this->panelContent_1= HelperHTML::generateTABLE($rs);
+                $this->panelContent_1= $this->generateTicketsTableWithButtons($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;
 
             case "closedTickets":
                 $table=new ticketsTable($this->db);
                 $rs=$table->getUserClosedMessages($this->user->getUserID());
-                $this->panelContent_1= HelperHTML::generateTABLE($rs);
+                $this->panelContent_1= $this->generateTicketsTableWithButtons($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;
             
@@ -215,6 +215,51 @@ class CustomerTickets extends PanelModel{
 
     }    
 
+
+
+    /**
+     * Generate a table of tickets with action buttons for each ticket
+     * 
+     * @param mysqli_result $resultSet The result set containing ticket data
+     * @return string HTML table with action buttons
+     */
+    private function generateTicketsTableWithButtons($resultSet){
+        $table='';  //start with an empty string
+        
+        if($resultSet == false){
+            return 'Sorry - there is no data available matching your query at this time';
+        }
+
+        if($resultSet->num_rows === 0){
+            return 'Sorry - there is no data available matching your query at this time';
+        }
+        
+        //generate the HTML table
+        $i=0;
+        $resultSet->data_seek(0);  //point to the first row in the result set
+        $table.= '<table class="table table-striped">';
+        while ($row = $resultSet->fetch_assoc()) {  //fetch associative array
+            while ($i===0)  //trick to generate the HTML table headings
+            {   $table.=  '<tr>';
+                foreach($row as $key=>$value){
+                    $table.=  "<th>$key</th>";
+                }
+                $table.=  '<th>Action</th>';
+                $table.=  '</tr>';
+                $i=1;  
+            }
+
+            $table.=  '<tr>';
+            foreach($row as $value){
+                $table.=  "<td>$value</td>";
+            }
+            $table.=  '<td><button class="btn btn-sm btn-primary" type="button">View</button></td>';
+            $table.=  '</tr>';
+        }
+        $table.=  '</table>';
+        
+        return $table;
+    }
 
 
         
