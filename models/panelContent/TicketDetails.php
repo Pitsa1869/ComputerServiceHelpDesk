@@ -33,10 +33,9 @@ class TicketDetails extends PanelModel {
     * @param String $pageTitle The page Title
     * @param String $pageHead The Page Heading
     * @param String $pageID The currently selected Page ID
-    * 
     */  
     function __construct($user,$db,$postArray,$pageTitle,$pageHead,$pageID){  
-        $this->modelType='UnderConstruction';
+        $this->modelType='TicketDetails';
         parent::__construct($user,$db,$postArray,$pageTitle,$pageHead,$pageID);
     } 
 
@@ -47,30 +46,28 @@ class TicketDetails extends PanelModel {
     public function setPanelHead_1(){
         
         switch ($this->pageID) {
-            case "menuItem1":  //sample menu item handler
-                $this->panelHead_1='<h3>Menu Item 1</h3>';
-                break;
-            case "menuItem2":  //sample menu item handler
-                $this->panelHead_1='<h3>Menu Item 2</h3>';
+            case "ticketDetails":  //sample menu item handler
+                $this->panelHead_1='<h3>Ticket Details</h3>';
                 break;
             default:  //sample DEFAULT menu item handler
                 $this->panelHead_1='<h3>Menu Item</h3>';
                 break;
             }//end switch   
         
-    }
-    
+    }  
     /**
     * Set the Panel 1 text content 
     */ 
     public function setPanelContent_1(){
         
         switch ($this->pageID) {
-            case "menuItem1":  //sample menu item handler
-                $this->panelContent_1="Panel 1 content for \$pageID <b>$this->pageID</b> menu item is under construction.";
-                break;
-            case "menuItem2":  //sample menu item handler
-                $this->panelContent_1="Panel 1 content for \$pageID <b>$this->pageID</b> menu item is under construction.";
+            case "ticketDetails":  //sample menu item handler
+                $table = new ticketsTable($this->db);
+                   
+                $ticketID = $_GET['TicketID'];  //get the ticketID from the URL query string
+                $rs = $table->getTicketDetails($ticketID); 
+                $this->panelContent_1 = HelperHTML::generateTABLE($rs);
+                array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;
             default:  //sample DEFAULT menu item handler
                 $this->panelContent_1="Panel 1 content for \$pageID <b>$this->pageID</b> menu item is under construction.";

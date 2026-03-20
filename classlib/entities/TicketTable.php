@@ -62,6 +62,7 @@ class ticketsTable extends TableEntity
         }
     }
 
+
     /**
      * Performs a SELECT query to returns all closed messages for the specified user
      *
@@ -139,6 +140,42 @@ class ticketsTable extends TableEntity
 
             if ($rs) {
                 return true;
+            } else {
+                //the query has not executed successfully
+                return false;
+            }
+        } catch (Exception $ex) {
+            //an exception has occurred - get the details for diagnostic purposes
+            $this->MySQLiErrorNr = $ex->getCode(); //get the exception number
+            $this->MySQLiErrorMsg = $ex->getMessage(); //get the exception error message
+            return false;
+        }
+    }
+
+
+
+       /**
+     * Performs a SELECT query to returns record from the table which matches the specified ticketID
+     *
+     * @param string $ticketID The ticket's unique ID
+     * 
+     * @return mixed Returns false on failure. For successful SELECT returns a mysqli_result object $rs
+     */
+    public function getTicketDetails($ticketID)
+    {
+        $this->SQL = "SELECT ticketID as 'TicketID',dateTimeStamp as 'Date opened',ticketAuthorID as 'Author',topic as 'Description',status as 'Status' FROM tickets WHERE ticketID='$ticketID'";
+
+        //execute the query using a try catch 
+        try {
+            $rs = $this->db->query($this->SQL);  //execute the query
+
+            if ($rs) {
+                if ($rs->num_rows == 1) {  //this query should return 1 record
+                    return $rs;  //the resultset can be returned as it contains ONLY one record
+                } else {
+                    //no records returned for this query 
+                    return false;
+                }
             } else {
                 //the query has not executed successfully
                 return false;

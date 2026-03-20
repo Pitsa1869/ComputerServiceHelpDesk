@@ -239,6 +239,10 @@ class CustomerTickets extends PanelModel{
         $resultSet->data_seek(0);  //point to the first row in the result set
         $table.= '<table class="table table-striped">';
         while ($row = $resultSet->fetch_assoc()) {  //fetch associative array
+            // Get the first field value and key from the row
+            $firstValue = reset($row);
+            $firstKey = key($row);
+            
             while ($i===0)  //trick to generate the HTML table headings
             {   $table.=  '<tr>';
                 foreach($row as $key=>$value){
@@ -253,7 +257,7 @@ class CustomerTickets extends PanelModel{
             foreach($row as $value){
                 $table.=  "<td>$value</td>";
             }
-            $table.=  '<td><a href="'.$_SERVER['PHP_SELF'].'?pageID='.$pageID.'"><button class="btn btn-sm btn-primary" type="button">View</button></a></td>';
+            $table.=  '<td><a href="'.$_SERVER['PHP_SELF'].'?pageID='.$pageID.'&'.$firstKey.'='.$firstValue.'"><button class="btn btn-sm btn-primary" type="button">View</button></a></td>';
             $table.=  '</tr>';
         }
         $table.=  '</table>';
