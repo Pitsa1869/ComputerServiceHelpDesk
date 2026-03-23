@@ -23,7 +23,7 @@ define ('FRAMEWORK_VERSION','16.20260309');  //The current release version of th
  * @global Boolean DEBUG_MODE True for DEBUG mode turned on
  * 
  */
-define ('DEBUG_MODE',TRUE);  //True for DEBUG mode turned on
+define ('DEBUG_MODE',false);  //True for DEBUG mode turned on
 
 
 /**

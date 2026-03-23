@@ -25,15 +25,17 @@ DROP TABLE IF EXISTS `comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
-  `commentID` int(11) NOT NULL,
+  `commentID` int(11) NOT NULL AUTO_INCREMENT,
   `ticketID` int(11) NOT NULL,
-  `Author` varchar(45) DEFAULT NULL,
+  `userID` varchar(45) DEFAULT NULL,
   `contents` varchar(244) DEFAULT NULL,
   `dateTimeStamp` datetime DEFAULT current_timestamp(),
-  PRIMARY KEY (`commentID`,`ticketID`),
+  PRIMARY KEY (`commentID`),
   KEY `fk_ticketID_comments_idx` (`ticketID`),
+  KEY `fk_UserID_comments_idx` (`userID`),
+  CONSTRAINT `fk_UserID_comments` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_ticketID_comments` FOREIGN KEY (`ticketID`) REFERENCES `tickets` (`ticketID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +44,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (1,2,'janeh@mail.com','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo sapien sit amet est pharetra laoreet. Vivamus suscipit malesuada mauris fringilla tempus. Vestibulum placerat metus eu tortor blandit, at gravida lorem pretium. Proin','2026-03-20 16:01:19'),(2,2,'jack@lit.ie','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo sapien sit amet est pharetra laoreet. Vivamus suscipit malesuada mauris fringilla tempus. Vestibulum placerat metus eu tortor blandit, at gravida lorem pretium. Proin','2026-03-20 16:03:00'),(14,2,'janeh@mail.com','Hello','2026-03-20 16:44:46');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,14 +135,6 @@ LOCK TABLES `usertype` WRITE;
 INSERT INTO `usertype` VALUES (1,'ADMIN'),(2,'TECHNICIAN'),(3,'CUSTOMER'),(99,'UNKNOWN');
 /*!40000 ALTER TABLE `usertype` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping events for database 'k00325530_compservice'
---
-
---
--- Dumping routines for database 'k00325530_compservice'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -150,4 +145,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-20 12:49:43
+-- Dump completed on 2026-03-20 16:54:37
