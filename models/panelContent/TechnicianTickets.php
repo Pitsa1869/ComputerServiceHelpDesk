@@ -71,8 +71,20 @@ class TechnicianTickets extends PanelModel {
                 break;
             case "availableTickets":  //sample menu item handler
                 $table=new ticketsTable($this->db);
-                $rs=$table->getAvailableTickets($this->user->getUserID());
+                $rs=$table->getAvailableTickets();
                 $this->panelContent_1= $table->generateAvailableTicketsTableWithButtons($rs);
+                array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                break;
+            case "activeTickets":  //sample menu item handler
+                $table=new ticketsTable($this->db);
+                $rs=$table->getTechnicianTickets($this->user->getUserID());
+                $this->panelContent_1= $table->generateTechnicianTicketsTableWithButtons($rs);
+                array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                break;
+            case "closedTickets":  //sample menu item handler
+                $table=new ticketsTable($this->db);
+                $rs=$table->getTechnicianClosedTickets($this->user->getUserID());
+                $this->panelContent_1= $table->generateTechnicianClosedTicketsTableWithButtons($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;
             default:  //sample DEFAULT menu item handler
