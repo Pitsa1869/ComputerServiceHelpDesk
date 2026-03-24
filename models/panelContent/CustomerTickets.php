@@ -76,14 +76,14 @@ class CustomerTickets extends PanelModel{
 
             case "viewTickets":
                 $table=new ticketsTable($this->db);
-                $rs=$table->getUserMessages($this->user->getUserID());
+                $rs=$table->getUserTickets($this->user->getUserID());
                 $this->panelContent_1= $table->generateUserTicketsTableWithButtons($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;
 
             case "closedTickets":
                 $table=new ticketsTable($this->db);
-                $rs=$table->getUserClosedMessages($this->user->getUserID());
+                $rs=$table->getUserClosedTickets($this->user->getUserID());
                 $this->panelContent_1= $table->generateUserTicketsTableWithButtons($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;

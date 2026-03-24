@@ -29,15 +29,15 @@ class ticketsTable extends TableEntity
 
    
     /**
-     * Performs a SELECT query to returns all records from the table where messages are TO the specified user or ALL users and NOT authored by the specified user 
+     * Performs a SELECT query to returns all records from the table where tickets are authored by the specified user and are not closed
      *
      * @param string $userID The user's unique ID
      * 
      * @return mixed Returns false on failure. For successful SELECT returns a mysqli_result object $rs
      */
-    public function getUserMessages($userID)
+    public function getUserTickets($userID)
     {
-        $this->SQL = "SELECT ticketID as 'TicketID',dateTimeStamp as 'Date opened',topic as 'Description',status as 'Status' FROM tickets WHERE ticketAuthorID='$userID' AND status!='Closed'";
+        $this->SQL = "SELECT ticketID as 'TicketID',topic as 'Description',dateTimeStamp as 'Date opened', status as 'Status' FROM tickets WHERE ticketAuthorID='$userID' AND status!='Closed'";
 
         //execute the query using a try catch 
         try {
@@ -160,15 +160,15 @@ class ticketsTable extends TableEntity
     }
 
     /**
-     * Performs a SELECT query to returns all closed messages for the specified user
+     * Performs a SELECT query to returns all closed tickets for the specified user
      *
      * @param string $userID The user's unique ID
      * 
      * @return mixed Returns false on failure. For successful SELECT returns a mysqli_result object $rs
      */
-    public function getUserClosedMessages($userID)
+    public function getUserClosedTickets($userID)
     {
-        $this->SQL = "SELECT ticketID as 'TicketID',dateTimeStamp as 'Date opened',ticketAuthorID as 'Author',topic as 'Description',dateTimeClosed as 'Date closed' FROM tickets WHERE ticketAuthorID='$userID' AND status='Closed'";
+        $this->SQL = "SELECT ticketID as 'TicketID', ticketAuthorID as 'Author',topic as 'Description',dateTimeStamp as 'Date opened', dateTimeClosed as 'Date closed' FROM tickets WHERE ticketAuthorID='$userID' AND status='Closed'";
 
         //execute the query using a try catch 
         try {
@@ -328,7 +328,7 @@ class ticketsTable extends TableEntity
      */
     public function getAvailableTickets()
     {
-        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', status as 'Status' from tickets WHERE assignedTechnicianID IS NULL OR assignedTechnicianID = ''";
+        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', dateTimeStamp as 'Date Opened', status as 'Status' from tickets WHERE assignedTechnicianID IS NULL OR assignedTechnicianID = ''";
 
         //execute the query using a try catch 
         try {
@@ -456,7 +456,7 @@ class ticketsTable extends TableEntity
     */
     public function getTechnicianTickets($technicianID)
     {
-        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', status as 'Status' from tickets WHERE assignedTechnicianID='$technicianID' AND status!='Closed'";
+        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', dateTimeStamp as 'Date Opened', status as 'Status' from tickets WHERE assignedTechnicianID='$technicianID' AND status!='Closed'";
 
         //execute the query using a try catch 
         try {
@@ -538,7 +538,7 @@ class ticketsTable extends TableEntity
      */
     public function getTechnicianClosedTickets($technicianID)
     {
-        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', status as 'Status' from tickets WHERE assignedTechnicianID='$technicianID' AND status='Closed'";
+        $this->SQL = "SELECT ticketID as 'TicketID',topic as 'Topic', dateTimeStamp as 'Date Opened', dateTimeClosed as 'Date Closed', status as 'Status' from tickets WHERE assignedTechnicianID='$technicianID' AND status='Closed'";
 
         //execute the query using a try catch 
         try {
