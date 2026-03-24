@@ -61,14 +61,14 @@ class TicketDetails extends PanelModel {
             case "ticketDetails":  //sample menu item handler
                 {
                     $ticketsTable = new ticketsTable($this->db);
-                    $ticketID = $_GET['Ticket_ID'];  //get the ticketID from the URL query string  
+                    $ticketID = $_GET['TicketID'];  //get the ticketID from the URL query string  
                     $rs = $ticketsTable->getTicketDetails($ticketID); 
                 
                 $this->panelContent_1 = HelperHTML::generateTicketCard($rs);
 
                 if(($ticketsTable->getAssignedTechnicianID($ticketID) === null || $ticketsTable->getAssignedTechnicianID($ticketID) == '') && $this->user->getUserType() == 'TECHNICIAN')
                 {
-                $this->panelContent_1 .= '<form method="post" action="index.php?pageID='.$this->pageID.'&'.'Ticket_ID'.'='.$_GET['Ticket_ID'].'">';
+                $this->panelContent_1 .= '<form method="post" action="index.php?pageID='.$this->pageID.'&'.'TicketID'.'='.$_GET['TicketID'].'">';
                 $this->panelContent_1 .= '<button type="submit" class="btn btn-default" value="TRUE" name="btnTakeTicket">Take Ticket</button>';
                 $this->panelContent_1 .= '</form>';
                 }
@@ -121,7 +121,7 @@ class TicketDetails extends PanelModel {
             case "ticketDetails":  //sample menu item handler
                 $commentsTable = new commentsTable($this->db);
                 $ticketsTable = new ticketsTable($this->db); 
-                $ticketID = $_GET['Ticket_ID'];  //get the ticketID from the URL query string  
+                $ticketID = $_GET['TicketID'];  //get the ticketID from the URL query string  
                 
                 $status = $ticketsTable->getTicketStatus($ticketID);
                 $assignedTechnicianID = $ticketsTable->getAssignedTechnicianID($ticketID);
@@ -131,7 +131,7 @@ class TicketDetails extends PanelModel {
                 if (isset($_POST['btnAddComment']) && !empty($_POST['comment'])) {
                     $commentsTable = new commentsTable($this->db);
                     $userID = $_SESSION['userID']; // или получить из User объекта
-                    $ticketID = $_GET['Ticket_ID'];
+                    $ticketID = $_GET['TicketID'];
                     $commentsTable->addComment($ticketID, $userID, $_POST['comment']);
                 }
                 $rs = $commentsTable->getCommentsByTicketID($ticketID); 

@@ -35,7 +35,7 @@ CREATE TABLE `comment` (
   KEY `fk_UserID_comments_idx` (`userID`),
   CONSTRAINT `fk_UserID_comments` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_ticketID_comments` FOREIGN KEY (`ticketID`) REFERENCES `tickets` (`ticketID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,2,'janeh@mail.com','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo sapien sit amet est pharetra laoreet. Vivamus suscipit malesuada mauris fringilla tempus. Vestibulum placerat metus eu tortor blandit, at gravida lorem pretium. Proin','2026-03-20 16:01:19'),(2,2,'jack@lit.ie','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo sapien sit amet est pharetra laoreet. Vivamus suscipit malesuada mauris fringilla tempus. Vestibulum placerat metus eu tortor blandit, at gravida lorem pretium. Proin','2026-03-20 16:03:00'),(14,2,'janeh@mail.com','Hello','2026-03-20 16:44:46');
+INSERT INTO `comment` VALUES (1,2,'janeh@mail.com','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo sapien sit amet est pharetra laoreet. Vivamus suscipit malesuada mauris fringilla tempus. Vestibulum placerat metus eu tortor blandit, at gravida lorem pretium. Proin','2026-03-20 16:01:19'),(2,2,'jack@lit.ie','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo sapien sit amet est pharetra laoreet. Vivamus suscipit malesuada mauris fringilla tempus. Vestibulum placerat metus eu tortor blandit, at gravida lorem pretium. Proin','2026-03-20 16:03:00'),(14,2,'janeh@mail.com','Hello','2026-03-20 16:44:46'),(15,1,'jack@lit.ie','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo sapien sit amet est pharetra laoreet. Vivamus suscipit malesuada mauris fringilla tempus. Vestibulum placerat metus eu tortor blandit, at gravida lorem pretium. Proin','2026-03-24 01:22:07');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,10 +60,15 @@ CREATE TABLE `tickets` (
   `topic` varchar(45) DEFAULT NULL,
   `ticketText` varchar(244) DEFAULT NULL,
   `dateTimeStamp` datetime DEFAULT current_timestamp(),
-  `ticketAuthorID` varchar(40) DEFAULT NULL,
+  `ticketAuthorID` varchar(45) DEFAULT NULL,
   `status` varchar(45) DEFAULT 'Active',
   `dateTimeClosed` datetime DEFAULT NULL,
-  PRIMARY KEY (`ticketID`)
+  `assignedTechnicianID` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`ticketID`),
+  KEY `fk_ticketAuthor_tickets_idx` (`ticketAuthorID`),
+  KEY `fk_ticketTexchnician_tickets_idx` (`assignedTechnicianID`),
+  CONSTRAINT `fk_ticketAuthor_tickets` FOREIGN KEY (`ticketAuthorID`) REFERENCES `user` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ticketTexchnician_tickets` FOREIGN KEY (`assignedTechnicianID`) REFERENCES `user` (`userID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -73,7 +78,7 @@ CREATE TABLE `tickets` (
 
 LOCK TABLES `tickets` WRITE;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
-INSERT INTO `tickets` VALUES (1,'Lorem ipsum dolor sit amet','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo sapien sit amet est pharetra laoreet. Vivamus suscipit malesuada mauris fringilla tempus. Vestibulum placerat metus eu tortor blandit, at gravida lorem pretium. Proin','2026-03-19 15:57:42','janeh@mail.com','Closed','2026-03-19 16:57:42'),(2,'Lorem ipsum dolor sit amet','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo sapien sit amet est pharetra laoreet. Vivamus suscipit malesuada mauris fringilla tempus. Vestibulum placerat metus eu tortor blandit, at gravida lorem pretium. Proin','2026-03-19 17:36:37','janeh@mail.com','Active',NULL),(3,'fdsadsfdssadffasd','Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pr','2026-03-19 18:53:58','janeh@mail.com','Active',NULL);
+INSERT INTO `tickets` VALUES (1,'Lorem ipsum dolor sit amet','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo sapien sit amet est pharetra laoreet. Vivamus suscipit malesuada mauris fringilla tempus. Vestibulum placerat metus eu tortor blandit, at gravida lorem pretium. Proin','2026-03-19 15:57:42','janeh@mail.com','Closed','2026-03-19 16:57:42','flann@gmail.com'),(2,'Lorem ipsum dolor sit amet','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque commodo sapien sit amet est pharetra laoreet. Vivamus suscipit malesuada mauris fringilla tempus. Vestibulum placerat metus eu tortor blandit, at gravida lorem pretium. Proin','2026-03-19 17:36:37','janeh@mail.com','Assigned',NULL,'flann@gmail.com'),(3,'fdsadsfdssadffasd','Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pr','2026-03-19 18:53:58','janeh@mail.com','Active',NULL,NULL);
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +104,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `userID_UNIQUE` (`userID`),
   KEY `fk_user_userType1_idx` (`userTypeNr`),
   CONSTRAINT `fk_user_userType1` FOREIGN KEY (`userTypeNr`) REFERENCES `usertype` (`userTypeNr`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,4 +150,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-20 16:54:37
+-- Dump completed on 2026-03-24  1:25:29

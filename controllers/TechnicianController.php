@@ -82,7 +82,7 @@ class TechnicianController extends Controller  {
                     break; 
                 case "ticketDetails":
                     //create objects to generate view content
-                    $contentModel = new TicketDetails($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID'], $this->getArray['Ticket_ID']);
+                    $contentModel = new TicketDetails($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID'], $this->getArray['TicketID']);
                     $navigationModel = new NavigationCustomer($this->user, $this->getArray['pageID']);
                     array_push($this->controllerObjects,$navigationModel,$contentModel);
                     $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                                  
