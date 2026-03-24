@@ -426,7 +426,38 @@ class ticketsTable extends TableEntity
      */
     public function assignTechnicianToTicket($ticketID, $assignedTechnicianID)
     {
-        $this->SQL = "UPDATE tickets SET assignedTechnicianID='$assignedTechnicianID' WHERE ticketID='$ticketID'";
+        $this->SQL = "UPDATE tickets SET assignedTechnicianID='$assignedTechnicianID', status = 'In Progress' WHERE ticketID='$ticketID'";
+        $rs = $this->db->query($this->SQL);
+        try{
+        if ($rs) {
+            if ($this->db->affected_rows == 1) {  //this query should affect 1 record
+                return true;
+            } else {
+                //no records updated for this query 
+                return false;
+            }
+        } else {
+            //the query has not executed successfully
+            return false;
+        }
+    } catch (Exception $ex) {
+        //an exception has occurred - get the details for diagnostic purposes
+        $this->MySQLiErrorNr = $ex->getCode(); //get the exception number
+        $this->MySQLiErrorMsg = $ex->getMessage(); //get the exception error message
+        return false;
+    }
+    }
+
+    /**
+     * Update the status of a ticket to 'Closed' and set the dateTimeClosed to the current date and time
+     *
+     * @param string $ticketID The ticket's unique ID
+     * 
+     * @return boolean Returns true on successful update, or false on failure
+     */
+    public function closeTicket($ticketID)
+    {
+        $this->SQL = "UPDATE tickets SET status='Closed', dateTimeClosed=NOW() WHERE ticketID='$ticketID'";
         $rs = $this->db->query($this->SQL);
         try{
         if ($rs) {

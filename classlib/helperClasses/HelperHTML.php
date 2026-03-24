@@ -257,7 +257,7 @@ Class HelperHTML {
      * @param mysqli_result $resultSet Result set containing comment data
      * @return string HTML formatted comment cards
      */
-    public static function generateCommentCards($resultSet,$ticketID = '', $pageID = 'createComment') {
+    public static function generateCommentCards($resultSet) {
         $html = '';
         
         if (!$resultSet || $resultSet->num_rows == 0) {
@@ -270,6 +270,7 @@ Class HelperHTML {
         // Loop through all comments in the result set
         while ($row = $resultSet->fetch_assoc()) {
             $author = $row['Author'] ?? $row['UserName'] ?? 'Anonymous';
+            $accountType = $row['userType'] ?? 'UNKNOWN';
             $datetime = $row['Date'] ?? $row['DatePosted'] ?? 'No date';
             $comment = $row['Comment'] ?? $row['Content'] ?? $row['Message'] ?? 'No comment';
             
@@ -284,6 +285,12 @@ Class HelperHTML {
             $html .= '<p style="margin: 0; font-weight: bold; color: #333;">' . htmlspecialchars($author) . '</p>';
             $html .= '</div>';
             
+            // Author Account Type
+            $html .= '<div>';
+            $html .= '<p style="margin: 0; font-style: italic; color: #999;">' . htmlspecialchars($accountType) . '</p>';
+            $html .= '</div>';
+
+
             // Date on the right
             $html .= '<div>';
             $html .= '<p style="margin: 0; color: #999; font-size: 0.85em;">' . htmlspecialchars($datetime) . '</p>';

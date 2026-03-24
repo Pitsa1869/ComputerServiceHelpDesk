@@ -68,12 +68,19 @@ class TicketDetails extends PanelModel {
 
                 if(($ticketsTable->getAssignedTechnicianID($ticketID) === null || $ticketsTable->getAssignedTechnicianID($ticketID) == '') && $this->user->getUserType() == 'TECHNICIAN')
                 {
-                $this->panelContent_1 .= '<form method="post" action="index.php?pageID='.$this->pageID.'&'.'TicketID'.'='.$_GET['TicketID'].'">';
-                $this->panelContent_1 .= '<button type="submit" class="btn btn-default" value="TRUE" name="btnTakeTicket">Take Ticket</button>';
-                $this->panelContent_1 .= '</form>';
+                    $this->panelContent_1 .= '<form method="post" action="index.php?pageID='.$this->pageID.'&'.'TicketID'.'='.$_GET['TicketID'].'">';
+                    $this->panelContent_1 .= '<button type="submit" class="btn btn-default" value="TRUE" name="btnTakeTicket">Take Ticket</button>';
+                    $this->panelContent_1 .= '</form>';
                 }
                 
-                if(isset($_POST['btnTakeTicket']))
+                if($ticketsTable->getTicketStatus($ticketID) != 'Closed' && $ticketsTable->getAssignedTechnicianID($ticketID) == $this->user->getUserID())
+                {
+                    $this->panelContent_1 .= '<form method="post" action="index.php?pageID='.$this->pageID.'&'.'TicketID'.'='.$_GET['TicketID'].'">';
+                    $this->panelContent_1 .= '<button type="submit" class="btn btn-default" value="TRUE" name="btnCloseTicket">Close Ticket</button>';
+                    $this->panelContent_1 .= '</form>';
+                }
+
+                if(isset($_POST['btnTakeTicket']) && ($ticketsTable->getAssignedTechnicianID($ticketID) === null || $ticketsTable->getAssignedTechnicianID($ticketID) == ''))
                 {
                     if($ticketsTable->assignTechnicianToTicket($ticketID, $this->user->getUserID()))
                         {
@@ -84,9 +91,22 @@ class TicketDetails extends PanelModel {
                     else {
                             $this->panelContent_1 .= '<p>Error taking ticket.</p>';
                         }
-                        unset($_POST['btnTakeTicket']);
+                        
                 }
                 
+                if(isset($_POST['btnCloseTicket']) && $ticketsTable->getTicketStatus($ticketID) != 'Closed' && $ticketsTable->getAssignedTechnicianID($ticketID) == $this->user->getUserID())
+                {
+                    if($ticketsTable->closeTicket($ticketID))
+                        {
+                            $rs = $ticketsTable->getTicketDetails($ticketID); 
+                            $this->panelContent_1 = HelperHTML::generateTicketCard($rs);
+                            $this->panelContent_1 .= '<p>Ticket closed successfully.</p>';
+                        } 
+                    else {
+                            $this->panelContent_1 .= '<p>Error closing ticket.</p>';
+                        }
+                        unset($_POST['btnCloseTicket']);
+                }
                 array_push($this->panelModelObjects,$ticketsTable); #for diagnostic purposes
                 break;
                 }
@@ -135,7 +155,7 @@ class TicketDetails extends PanelModel {
                     $commentsTable->addComment($ticketID, $userID, $_POST['comment']);
                 }
                 $rs = $commentsTable->getCommentsByTicketID($ticketID); 
-                $this->panelContent_2 = HelperHTML::generateCommentCards($rs,$ticketID);
+                $this->panelContent_2 = HelperHTML::generateCommentCards($rs);
                 if($status != 'Closed') 
                 {
                 $this->panelContent_2 .= Form::form_add_comment($this->pageID, $ticketID);
