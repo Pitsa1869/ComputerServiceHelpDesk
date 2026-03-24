@@ -43,7 +43,6 @@ class TicketDetails extends PanelModel {
      * Set the Panel 1 heading 
      */
     public function setPanelHead_1(){
-        
         switch ($this->pageID) {
             case "ticketDetails":  //sample menu item handler
                 $this->panelHead_1='<h3>Ticket Details</h3>';
@@ -52,7 +51,6 @@ class TicketDetails extends PanelModel {
                 $this->panelHead_1='<h3>Menu Item</h3>';
                 break;
             }//end switch   
-        
     }  
     /**
     * Set the Panel 1 text content 
@@ -63,15 +61,40 @@ class TicketDetails extends PanelModel {
             case "ticketDetails":  //sample menu item handler
                 {
                     $ticketsTable = new ticketsTable($this->db);
-                    $ticketID = $_GET['TicketID'];  //get the ticketID from the URL query string  
+                    $ticketID = $_GET['Ticket_ID'];  //get the ticketID from the URL query string  
                     $rs = $ticketsTable->getTicketDetails($ticketID); 
-                }
+                
                 $this->panelContent_1 = HelperHTML::generateTicketCard($rs);
+
+                if(($ticketsTable->getAssignedTechnicianID($ticketID) === null || $ticketsTable->getAssignedTechnicianID($ticketID) == '') && $this->user->getUserType() == 'TECHNICIAN')
+                {
+                $this->panelContent_1 .= '<form method="post" action="index.php?pageID='.$this->pageID.'&'.'Ticket_ID'.'='.$_GET['Ticket_ID'].'">';
+                $this->panelContent_1 .= '<button type="submit" class="btn btn-default" value="TRUE" name="btnTakeTicket">Take Ticket</button>';
+                $this->panelContent_1 .= '</form>';
+                }
+                
+                if(isset($_POST['btnTakeTicket']))
+                {
+                    if($ticketsTable->assignTechnicianToTicket($ticketID, $this->user->getUserID()))
+                        {
+                            $rs = $ticketsTable->getTicketDetails($ticketID); 
+                            $this->panelContent_1 = HelperHTML::generateTicketCard($rs);
+                            $this->panelContent_1 .= '<p>Ticket taken successfully.</p>';
+                        } 
+                    else {
+                            $this->panelContent_1 .= '<p>Error taking ticket.</p>';
+                        }
+                        unset($_POST['btnTakeTicket']);
+                }
+                
                 array_push($this->panelModelObjects,$ticketsTable); #for diagnostic purposes
                 break;
+                }
             default:  //sample DEFAULT menu item handler
+            {
                 $this->panelContent_1="Panel 1 content for \$pageID <b>$this->pageID</b> menu item is under construction.";
                 break;
+            }
             }//end switch
         
     }        
@@ -98,15 +121,17 @@ class TicketDetails extends PanelModel {
             case "ticketDetails":  //sample menu item handler
                 $commentsTable = new commentsTable($this->db);
                 $ticketsTable = new ticketsTable($this->db); 
-                $ticketID = $_GET['TicketID'];  //get the ticketID from the URL query string  
-
+                $ticketID = $_GET['Ticket_ID'];  //get the ticketID from the URL query string  
+                
                 $status = $ticketsTable->getTicketStatus($ticketID);
-                
-                
+                $assignedTechnicianID = $ticketsTable->getAssignedTechnicianID($ticketID);
+                $ticketAuthorID = $ticketsTable->getTicketAuthorID($ticketID);
+                if($this->user->getUserID() == $assignedTechnicianID || $this->user->getUserID() == $ticketAuthorID)
+                {
                 if (isset($_POST['btnAddComment']) && !empty($_POST['comment'])) {
                     $commentsTable = new commentsTable($this->db);
                     $userID = $_SESSION['userID']; // или получить из User объекта
-                    $ticketID = $_GET['TicketID'];
+                    $ticketID = $_GET['Ticket_ID'];
                     $commentsTable->addComment($ticketID, $userID, $_POST['comment']);
                 }
                 $rs = $commentsTable->getCommentsByTicketID($ticketID); 
@@ -114,6 +139,9 @@ class TicketDetails extends PanelModel {
                 if($status != 'Closed') 
                 {
                 $this->panelContent_2 .= Form::form_add_comment($this->pageID, $ticketID);
+                }
+            } else {
+                $this->panelContent_2 = "You are not allowed to comment on this ticket";
                 }
                 break;
             default:  //sample DEFAULT menu item handler

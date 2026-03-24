@@ -77,14 +77,14 @@ class CustomerTickets extends PanelModel{
             case "viewTickets":
                 $table=new ticketsTable($this->db);
                 $rs=$table->getUserMessages($this->user->getUserID());
-                $this->panelContent_1= $this->generateTicketsTableWithButtons($rs);
+                $this->panelContent_1= $table->generateUserTicketsTableWithButtons($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;
 
             case "closedTickets":
                 $table=new ticketsTable($this->db);
                 $rs=$table->getUserClosedMessages($this->user->getUserID());
-                $this->panelContent_1= $this->generateTicketsTableWithButtons($rs);
+                $this->panelContent_1= $table->generateUserTicketsTableWithButtons($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;
             
@@ -139,6 +139,7 @@ class CustomerTickets extends PanelModel{
                 break;
             case "createTicket":
                 {
+                    
                     if(isset($this->postArray['btnCreateTicket'])){
                         $table=new ticketsTable($this->db);
                         $result=$table->addRecord($this->postArray,$this->user);
@@ -165,7 +166,7 @@ class CustomerTickets extends PanelModel{
             }//end switch
 
     }        
-
+    
     /**
      * Set the Panel 3 heading 
      */
@@ -217,53 +218,7 @@ class CustomerTickets extends PanelModel{
 
 
 
-    /**
-     * Generate a table of tickets with action buttons for each ticket
-     * 
-     * @param mysqli_result $resultSet The result set containing ticket data
-     * @return string HTML table with action buttons
-     */
-    private function generateTicketsTableWithButtons($resultSet, $pageID = 'ticketDetails') {
-        $table='';  //start with an empty string
-        
-        if($resultSet == false){
-            return 'Sorry - there is no data available matching your query at this time';
-        }
-
-        if($resultSet->num_rows === 0){
-            return 'Sorry - there is no data available matching your query at this time';
-        }
-        
-        //generate the HTML table
-        $i=0;
-        $resultSet->data_seek(0);  //point to the first row in the result set
-        $table.= '<table class="table table-striped">';
-        while ($row = $resultSet->fetch_assoc()) {  //fetch associative array
-            // Get the first field value and key from the row
-            $firstValue = reset($row);
-            $firstKey = key($row);
-            
-            while ($i===0)  //trick to generate the HTML table headings
-            {   $table.=  '<tr>';
-                foreach($row as $key=>$value){
-                    $table.=  "<th>$key</th>";
-                }
-                $table.=  '<th>Action</th>';
-                $table.=  '</tr>';
-                $i=1;  
-            }
-
-            $table.=  '<tr>';
-            foreach($row as $value){
-                $table.=  "<td>$value</td>";
-            }
-            $table.=  '<td><a href="'.$_SERVER['PHP_SELF'].'?pageID='.$pageID.'&'.$firstKey.'='.$firstValue.'"><button class="btn btn-sm btn-primary" type="button">View</button></a></td>';
-            $table.=  '</tr>';
-        }
-        $table.=  '</table>';
-        
-        return $table;
-    }
+    
 
 
         

@@ -93,6 +93,7 @@ include_once 'models/panelContent/TicketDetails.php';
 //Page models TECHNICIAN
 include_once 'models/panelContent/TechnicianHome.php';
 include_once 'models/panelContent/TechnicianMyAccount.php';
+include_once 'models/panelContent/TechnicianTickets.php';
 
 //****
 //**** Create a MySQLi connection to the database

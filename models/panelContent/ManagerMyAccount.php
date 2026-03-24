@@ -36,8 +36,6 @@ class ManagerMyAccount extends PanelModel{
         $this->modelType='ManagerMyAccount';
         parent::__construct($user,$db,$postArray,$pageTitle,$pageHead,$pageID);
     } 
-
-
     /**
      * Set the Panel 1 heading 
      */

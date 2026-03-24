@@ -81,15 +81,19 @@ class NavigationTechnician implements NavigationInterface {
                 switch ($this->pageID) {
                     //home menu navigation
                     case "home":
+                        
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=tickets">Tickets</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=myAccount">My Account</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=menuitem1">Menu Item 1</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
                         break;
 
                     //example of under construction menu item
-                    case "menuitem1":
+                    case "tickets":
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=availableTickets">Available Tickets</a></li>';
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=myTickets">My Tickets</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=myAccount">My Account</a></li>';
-                        //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=menuitem1">Menu Item 1</a></li>';
+                        //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=tickets">Tickets</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
                         break;
 
