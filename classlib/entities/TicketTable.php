@@ -62,6 +62,38 @@ class ticketsTable extends TableEntity
         }
     }
 
+    
+    /**
+     * Performs a SELECT query to returns all records from the table where tickets are not assigned to any technician
+     *
+     * @return mixed Returns false on failure. For successful SELECT returns a mysqli_result object $rs
+     */
+    public function getAllTickets()
+    {
+        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', dateTimeStamp as 'Date Opened', status as 'Status' from tickets ORDER BY ticketID";
+
+        //execute the query using a try catch 
+        try {
+            $rs = $this->db->query($this->SQL);  //execute the query
+
+            if ($rs) {
+                if ($rs->num_rows >= 1) {  //this query should return 1 or more records
+                    return $rs;  //the resultset can be returned as it contains ONLY one record
+                } else {
+                    //no records returned for this query 
+                    return false;
+                }
+            } else {
+                //the query has not executed successfully
+                return false;
+            }
+        } catch (Exception $ex) {
+            //an exception has occurred - get the details for diagnostic purposes
+            $this->MySQLiErrorNr = $ex->getCode(); //get the exception number
+            $this->MySQLiErrorMsg = $ex->getMessage(); //get the exception error message
+            return false;
+        }
+    }
     /**
      * Generate a table of tickets with action buttons for each ticket
      * 
@@ -159,6 +191,59 @@ class ticketsTable extends TableEntity
         return $table;
     }
 
+    public function getTicketsByCustomer($customerID)
+    {
+        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', dateTimeStamp as 'Date Opened', status as 'Status' from tickets WHERE ticketAuthorID='$customerID' ORDER BY ticketID";
+
+        //execute the query using a try catch 
+        try {
+            $rs = $this->db->query($this->SQL);  //execute the query
+
+            if ($rs) {
+                if ($rs->num_rows >= 1) {  //this query should return 1 or more records
+                    return $rs;  //the resultset can be returned as it contains ONLY one record
+                } else {
+                    //no records returned for this query 
+                    return false;
+                }
+            } else {
+                //the query has not executed successfully
+                return false;
+            }
+        } catch (Exception $ex) {
+            //an exception has occurred - get the details for diagnostic purposes
+            $this->MySQLiErrorNr = $ex->getCode(); //get the exception number
+            $this->MySQLiErrorMsg = $ex->getMessage(); //get the exception error message
+            return false;
+        }
+    }
+
+    public function getTicketsByTechnician($technicianID)
+    {
+        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', dateTimeStamp as 'Date Opened', status as 'Status' from tickets WHERE assignedTechnicianID='$technicianID' ORDER BY ticketID";
+
+        //execute the query using a try catch 
+        try {
+            $rs = $this->db->query($this->SQL);  //execute the query
+
+            if ($rs) {
+                if ($rs->num_rows >= 1) {  //this query should return 1 or more records
+                    return $rs;  //the resultset can be returned as it contains ONLY one record
+                } else {
+                    //no records returned for this query 
+                    return false;
+                }
+            } else {
+                //the query has not executed successfully
+                return false;
+            }
+        } catch (Exception $ex) {
+            //an exception has occurred - get the details for diagnostic purposes
+            $this->MySQLiErrorNr = $ex->getCode(); //get the exception number
+            $this->MySQLiErrorMsg = $ex->getMessage(); //get the exception error message
+            return false;
+        }
+    }
     /**
      * Performs a SELECT query to returns all closed tickets for the specified user
      *

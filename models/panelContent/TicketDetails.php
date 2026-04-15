@@ -73,7 +73,7 @@ class TicketDetails extends PanelModel {
                     $this->panelContent_1 .= '</form>';
                 }
                 
-                if($ticketsTable->getTicketStatus($ticketID) != 'Closed' && $ticketsTable->getAssignedTechnicianID($ticketID) == $this->user->getUserID())
+                if($ticketsTable->getTicketStatus($ticketID) != 'Closed' && ($ticketsTable->getAssignedTechnicianID($ticketID) == $this->user->getUserID() || $this->user->getUserType() == 'ADMIN'))
                 {
                     $this->panelContent_1 .= '<form method="post" action="index.php?pageID='.$this->pageID.'&'.'TicketID'.'='.$_GET['TicketID'].'">';
                     $this->panelContent_1 .= '<button type="submit" class="btn btn-default" value="TRUE" name="btnCloseTicket">Close Ticket</button>';
@@ -146,7 +146,7 @@ class TicketDetails extends PanelModel {
                 $status = $ticketsTable->getTicketStatus($ticketID);
                 $assignedTechnicianID = $ticketsTable->getAssignedTechnicianID($ticketID);
                 $ticketAuthorID = $ticketsTable->getTicketAuthorID($ticketID);
-                if($this->user->getUserID() == $assignedTechnicianID || $this->user->getUserID() == $ticketAuthorID)
+                if(($this->user->getUserID() == $assignedTechnicianID || $this->user->getUserID() == $ticketAuthorID) || $this->user->getUserType() == 'ADMIN')
                 {
                 if (isset($_POST['btnAddComment']) && !empty($_POST['comment'])) {
                     $commentsTable = new commentsTable($this->db);

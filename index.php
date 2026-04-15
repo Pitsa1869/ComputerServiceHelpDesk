@@ -84,6 +84,7 @@ include_once 'models/panelContent/AdminHome.php';
 include_once 'models/panelContent/AccountAdminCustomer.php';
 include_once 'models/panelContent/AdminManageSystem.php';
 include_once 'models/panelContent/AdminManageUsers.php';
+include_once 'models/panelContent/AdminTickets.php';
 
 //Page models CUSTOMER
 include_once 'models/panelContent/CustomerHome.php';

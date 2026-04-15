@@ -70,6 +70,66 @@ class AdminController extends Controller  {
                     include_once 'views/view_navbar_3_panel.php'; //load the view                  
                     break;   
                 
+                case "adminTickets":
+                {
+                    //create objects to generate view content
+                    $contentModel = new AdminTickets($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
+                    $navigationModel = new NavigationAdmin($this->user, $this->getArray['pageID']);
+                    array_push($this->controllerObjects,$navigationModel,$contentModel);
+                    $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
+                    $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
+                    //update the view
+                    include_once 'views/view_navbar_2_panel.php';  //load the view                      
+                    break;
+                }
+                case "allTickets":
+                {
+                    //create objects to generate view content
+                    $contentModel = new AdminTickets($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
+                    $navigationModel = new NavigationAdmin($this->user, $this->getArray['pageID']);
+                    array_push($this->controllerObjects,$navigationModel,$contentModel);
+                    $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
+                    $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
+                    //update the view
+                    include_once 'views/view_navbar_1_panel.php';  //load the view                      
+                    break;
+                }
+                case "ticketsByCustomer":
+                {
+                    //create objects to generate view content
+                    $contentModel = new AdminTickets($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
+                    $navigationModel = new NavigationAdmin($this->user, $this->getArray['pageID']);
+                    array_push($this->controllerObjects,$navigationModel,$contentModel);
+                    $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
+                    $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
+                    //update the view
+                    include_once 'views/view_navbar_2_panel.php';  //load the view                      
+                    break;
+                }
+                case "ticketsByTechnician":
+                {
+                    //create objects to generate view content
+                    $contentModel = new AdminTickets($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
+                    $navigationModel = new NavigationAdmin($this->user, $this->getArray['pageID']);
+                    array_push($this->controllerObjects,$navigationModel,$contentModel);
+                    $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
+                    $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
+                    //update the view
+                    include_once 'views/view_navbar_2_panel.php';  //load the view                      
+                    break;
+                }
+                case "ticketDetails":  //sample menu item handler
+                    {
+                        //create objects to generate view content
+                    $contentModel = new TicketDetails($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID'], $this->getArray['TicketID']);
+                    $navigationModel = new NavigationAdmin($this->user, $this->getArray['pageID']);
+                    array_push($this->controllerObjects,$navigationModel,$contentModel);
+                    $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                                  
+                    $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
+                    //update the view
+                    include_once 'views/view_navbar_2_panel_stacked.php';  //load the view   
+                    break;
+                    }
                 //manage users handlers               
                 case "manageUsers":
                     //create objects to generate view content ($loggedin,$pageTitle,$pageHead,$database,$pageID)
