@@ -48,7 +48,7 @@ class commentsTable extends TableEntity {
         */
     public function getCommentsByTicketID($ticketID)
     {
-        $this->SQL = "SELECT c.dateTimeStamp as 'Date',c.userID as 'Author', ut.userTypeDescr as 'userType' ,c.contents as 'Comment' FROM comment c LEFT JOIN user u ON c.userID=u.userID RIGHT JOIN usertype ut ON u.userTypeNr = ut.userTypeNr WHERE ticketID='2' ORDER BY dateTimeStamp ASC";
+        $this->SQL = "SELECT c.dateTimeStamp as 'Date',c.userID as 'Author', ut.userTypeDescr as 'userType' ,c.contents as 'Comment' FROM comment c LEFT JOIN user u ON c.userID=u.userID RIGHT JOIN usertype ut ON u.userTypeNr = ut.userTypeNr WHERE ticketID='$ticketID' ORDER BY dateTimeStamp ASC";
 
         //execute the query using a try catch 
         try {
