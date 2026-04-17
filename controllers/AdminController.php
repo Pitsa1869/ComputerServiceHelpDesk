@@ -79,7 +79,7 @@ class AdminController extends Controller  {
                     $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
                     $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
                     //update the view
-                    include_once 'views/view_navbar_2_panel.php';  //load the view                      
+                    include_once 'views/view_navbar_1_panel.php';  //load the view                      
                     break;
                 }
                 case "allTickets":

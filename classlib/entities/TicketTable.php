@@ -445,7 +445,7 @@ class ticketsTable extends TableEntity
      */
     public function getAvailableTickets()
     {
-        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', dateTimeStamp as 'Date Opened', status as 'Status' from tickets WHERE assignedTechnicianID IS NULL OR assignedTechnicianID = ''";
+        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', dateTimeStamp as 'Date Opened', status as 'Status' from tickets WHERE (assignedTechnicianID IS NULL OR assignedTechnicianID = '') AND status = 'Active'";
 
         //execute the query using a try catch 
         try {

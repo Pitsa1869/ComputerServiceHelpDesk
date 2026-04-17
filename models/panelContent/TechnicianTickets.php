@@ -47,11 +47,17 @@ class TechnicianTickets extends PanelModel {
     public function setPanelHead_1(){
         
         switch ($this->pageID) {
-            case "menuItem1":  //sample menu item handler
-                $this->panelHead_1='<h3>Menu Item 1</h3>';
+            case "availableTickets": 
+                $this->panelHead_1='<h3>Available Tickets</h3>';
                 break;
-            case "menuItem2":  //sample menu item handler
-                $this->panelHead_1='<h3>Menu Item 2</h3>';
+                case "activeTickets":
+                $this->panelHead_1='<h3>Active Tickets</h3>';
+                break;
+                case "closedTickets":
+                $this->panelHead_1='<h3>Closed Tickets</h3>';
+                break;
+                case 'tickets':
+                $this->panelHead_1='<h3>Tickets</h3>';
                 break;
             default:  //sample DEFAULT menu item handler
                 $this->panelHead_1='<h3>Menu Item</h3>';

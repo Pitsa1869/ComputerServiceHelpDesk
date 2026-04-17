@@ -36,7 +36,7 @@ class AdminTickets extends PanelModel {
     * 
     */  
     function __construct($user,$db,$postArray,$pageTitle,$pageHead,$pageID){  
-        $this->modelType='TechnicianTickets';
+        $this->modelType='AdminTickets';
         parent::__construct($user,$db,$postArray,$pageTitle,$pageHead,$pageID);
     } 
 
@@ -53,6 +53,23 @@ class AdminTickets extends PanelModel {
             case "menuItem2":  //sample menu item handler
                 $this->panelHead_1='<h3>Menu Item 2</h3>';
                 break;
+            case "adminTickets":  //sample menu item handler
+                $this->panelHead_1='<h3>Tickets</h3>';
+                break;
+            case "allTickets":  //sample menu item handler
+                $this->panelHead_1='<h3>All Tickets</h3>';
+                break;
+
+                case "openTickets":  //sample menu item handler
+                $this->panelHead_1='<h3>Open Tickets</h3>';
+                break;
+            case "ticketsByCustomer":  //sample menu item handler
+                $this->panelHead_1='<h3>Tickets by Customer</h3>';
+                break;
+            case "ticketsByTechnician":  //sample menu item handler
+                $this->panelHead_1='<h3>Tickets by Technician</h3>';
+                break;
+
             default:  //sample DEFAULT menu item handler
                 $this->panelHead_1='<h3>Menu Item</h3>';
                 break;
@@ -66,7 +83,7 @@ class AdminTickets extends PanelModel {
     public function setPanelContent_1(){
         
         switch ($this->pageID) {
-            case "tickets":  //sample menu item handler
+            case "adminTickets":  //sample menu item handler
                 $this->panelContent_1='This is tickets sub-menu. Select an option from the top menu bar';
                 break;
             case "allTickets":  //sample menu item handler
@@ -108,6 +125,15 @@ class AdminTickets extends PanelModel {
             case "menuItem2":  //sample menu item handler
                 $this->panelHead_2='<h3>Menu Item 2</h3>';
                 break;
+            case "adminTickets":  //sample menu item handler
+                $this->panelHead_2='';
+                break;
+                case "ticketsByCustomer":  //sample menu item handler
+                $this->panelHead_2='<h3>Instructions</h3>';
+                break;
+                case "ticketsByTechnician":  //sample menu item handler
+                $this->panelHead_2='<h3>Instructions</h3>';
+                break;
             default:  //sample DEFAULT menu item handler
                 $this->panelHead_2='<h3>Menu Item</h3>';
                 break;
@@ -120,6 +146,9 @@ class AdminTickets extends PanelModel {
     */ 
     public function setPanelContent_2(){
         switch ($this->pageID) {
+            case "adminTickets":  //sample menu item handler
+                $this->panelContent_2='';
+                break;
             case "ticketsByCustomer":  //sample menu item handler
                 if(isset($_POST['btnViewTicketsByCustomer']) && !empty($_POST['customerID']))
                 {
