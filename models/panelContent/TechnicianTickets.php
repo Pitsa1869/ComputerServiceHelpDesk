@@ -51,10 +51,10 @@ class TechnicianTickets extends PanelModel {
                 $this->panelHead_1='<h3>Available Tickets</h3>';
                 break;
                 case "activeTickets":
-                $this->panelHead_1='<h3>Active Tickets</h3>';
+                $this->panelHead_1='<h3>Find by Ticket ID</h3>';
                 break;
                 case "closedTickets":
-                $this->panelHead_1='<h3>Closed Tickets</h3>';
+                $this->panelHead_1='<h3>Find by Ticket ID</h3>';
                 break;
                 case 'tickets':
                 $this->panelHead_1='<h3>Tickets</h3>';
@@ -83,15 +83,11 @@ class TechnicianTickets extends PanelModel {
                 break;
             case "activeTickets":  //sample menu item handler
                 $table=new ticketsTable($this->db);
-                $rs=$table->getTechnicianTickets($this->user->getUserID());
-                $this->panelContent_1= $table->generateTechnicianTicketsTableWithButtons($rs);
-                array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                $this->panelContent_1=Form::form_ticketByTicketID($this->pageID);
                 break;
             case "closedTickets":  //sample menu item handler
                 $table=new ticketsTable($this->db);
-                $rs=$table->getTechnicianClosedTickets($this->user->getUserID());
-                $this->panelContent_1= $table->generateTechnicianClosedTicketsTableWithButtons($rs);
-                array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                $this->panelContent_1=Form::form_ticketByTicketID($this->pageID);
                 break;
             default:  //sample DEFAULT menu item handler
                 $this->panelContent_1="Panel 1 content for \$pageID <b>$this->pageID</b> menu item is under construction.";
@@ -111,6 +107,12 @@ class TechnicianTickets extends PanelModel {
             case "menuItem2":  //sample menu item handler
                 $this->panelHead_2='<h3>Menu Item 2</h3>';
                 break;
+            case "activeTickets":  //sample menu item handler
+                $this->panelHead_2='<h3>Active Tickets</h3>';
+                break;
+            case "closedTickets":  //sample menu item handler
+                $this->panelHead_2='<h3>Closed Tickets</h3>';
+                break;
             default:  //sample DEFAULT menu item handler
                 $this->panelHead_2='<h3>Menu Item</h3>';
                 break;
@@ -129,6 +131,44 @@ class TechnicianTickets extends PanelModel {
             case "menuItem2":  //sample menu item handler
                 $this->panelContent_2="Panel 2 content for \$pageID <b>$this->pageID</b> menu item is under construction.";
                 break;
+            case "activeTickets":  //sample menu item handler
+                if(isset($_POST['btnViewTicketByTicketID']) && !empty($_POST['ticketID']))
+                {
+                    $table=new ticketsTable($this->db);
+                    $rs=$table->getTicketByTicketIDActive($_POST['ticketID'], $this->user->getUserID());
+                    $this->panelContent_2= $table->generateAvailableTicketsTableWithButtons($rs);
+                    unset($_POST['btnViewTicketByTicketID']);
+                    unset($_POST['ticketID']);
+                    array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                }
+                else
+                {
+                $table=new ticketsTable($this->db);
+                $rs=$table->getTechnicianTickets($this->user->getUserID());
+                $this->panelContent_2= $table->generateTechnicianTicketsTableWithButtons($rs);
+                array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                }
+                break;
+
+            case "closedTickets":  //sample menu item handler
+                if(isset($_POST['btnViewTicketByTicketID']) && !empty($_POST['ticketID']))
+                {
+                    $table=new ticketsTable($this->db);
+                    $rs=$table->getTicketByTicketIDClosed($_POST['ticketID'], $this->user->getUserID());
+                    $this->panelContent_2= $table->generateAvailableTicketsTableWithButtons($rs);
+                    unset($_POST['btnViewTicketByTicketID']);
+                    unset($_POST['ticketID']);
+                    array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                }
+                else
+                {
+                $table=new ticketsTable($this->db);
+                $rs=$table->getTechnicianClosedTickets($this->user->getUserID());
+                $this->panelContent_2= $table->generateTechnicianTicketsTableWithButtons($rs);
+                array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                }
+            break;
+
             default:  //sample DEFAULT menu item handler
                 $this->panelContent_2="Panel 2 content for \$pageID <b>DEFAULT</b> menu item is under construction.";
                 break;

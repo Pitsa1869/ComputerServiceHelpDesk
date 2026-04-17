@@ -57,12 +57,13 @@ class AdminTickets extends PanelModel {
                 $this->panelHead_1='<h3>Tickets</h3>';
                 break;
             case "allTickets":  //sample menu item handler
-                $this->panelHead_1='<h3>All Tickets</h3>';
+                $this->panelHead_1='<h3>Find by Ticket ID</h3>';
                 break;
 
-                case "openTickets":  //sample menu item handler
+            case "openTickets":  //sample menu item handler
                 $this->panelHead_1='<h3>Open Tickets</h3>';
                 break;
+
             case "ticketsByCustomer":  //sample menu item handler
                 $this->panelHead_1='<h3>Tickets by Customer</h3>';
                 break;
@@ -88,10 +89,9 @@ class AdminTickets extends PanelModel {
                 break;
             case "allTickets":  //sample menu item handler
                 $table=new ticketsTable($this->db);
-                $rs=$table->getAllTickets();
-                $this->panelContent_1= $table->generateAvailableTicketsTableWithButtons($rs);
-                array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                $this->panelContent_1=Form::form_ticketByTicketID($this->pageID);
                 break;
+
             case "openTickets":  //sample menu item handler
                 $table=new ticketsTable($this->db);
                 $rs=$table->getOpenTickets();
@@ -101,8 +101,6 @@ class AdminTickets extends PanelModel {
                 
             case "ticketsByCustomer":  //sample menu item handler
                 $this->panelContent_1=Form::form_ticketsByCustomer($this->pageID);
-                break;
-                array_push($this->panelModelObjects); #for diagnostic purposes
                 break;
             case "ticketsByTechnician":  //sample menu item handler
                 $this->panelContent_1=Form::form_ticketsByTechnician($this->pageID);
@@ -124,6 +122,9 @@ class AdminTickets extends PanelModel {
                 break;
             case "menuItem2":  //sample menu item handler
                 $this->panelHead_2='<h3>Menu Item 2</h3>';
+                break;
+            case "allTickets":  //sample menu item handler
+                $this->panelHead_2='<h3>All Tickets</h3>';
                 break;
             case "adminTickets":  //sample menu item handler
                 $this->panelHead_2='';
@@ -148,6 +149,24 @@ class AdminTickets extends PanelModel {
         switch ($this->pageID) {
             case "adminTickets":  //sample menu item handler
                 $this->panelContent_2='';
+                break;
+            case "allTickets":  //sample menu item handler
+                if(isset($_POST['btnViewTicketByTicketID']) && !empty($_POST['ticketID']))
+                {
+                    $table=new ticketsTable($this->db);
+                    $rs=$table->getTicketByTicketID($_POST['ticketID']);
+                    $this->panelContent_2= $table->generateAvailableTicketsTableWithButtons($rs);
+                    unset($_POST['btnViewTicketByTicketID']);
+                    unset($_POST['ticketID']);
+                    array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                }
+                else
+                {
+                $table=new ticketsTable($this->db);
+                $rs=$table->getAllTickets();
+                $this->panelContent_2= $table->generateAvailableTicketsTableWithButtons($rs);
+                array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                }
                 break;
             case "ticketsByCustomer":  //sample menu item handler
                 if(isset($_POST['btnViewTicketsByCustomer']) && !empty($_POST['customerID']))

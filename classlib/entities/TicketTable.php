@@ -630,6 +630,106 @@ class ticketsTable extends TableEntity
     }
 
      /**
+     * Performs a SELECT query to return the details of a ticket by ticketID
+     * *
+     * @param string $ticketID The ticket's unique ID
+     * @return mixed Returns a result set on success, or false on failure
+     */
+    public function getTicketByTicketID($ticketID)
+    {
+        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', dateTimeStamp as 'Date Opened', status as 'Status' from tickets WHERE ticketID='$ticketID'";
+
+        //execute the query using a try catch 
+        try {
+            $rs = $this->db->query($this->SQL);  //execute the query
+
+            if ($rs) {
+                if ($rs->num_rows >= 1) {  //this query should return 1 record
+                    return $rs;
+                } else {
+                    //no records returned for this query 
+                    return false;
+                }
+            } else {
+                //the query has not executed successfully
+                return false;
+            }
+        } catch (Exception $ex) {
+            //an exception has occurred - get the details for diagnostic purposes
+            $this->MySQLiErrorNr = $ex->getCode(); //get the exception number
+            $this->MySQLiErrorMsg = $ex->getMessage(); //get the exception error message
+            return false;
+        }
+    }
+
+    /**
+     * Performs a SELECT query to return the details of a ticket by ticketID
+     * *
+     * @param string $ticketID The ticket's unique ID
+     * @param string $userID The technician's unique ID to ensure they can only view tickets assigned to them
+     * @return mixed Returns a result set on success, or false on failure
+     */
+    public function getTicketByTicketIDActive($ticketID, $userID)
+    {
+        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', dateTimeStamp as 'Date Opened', status as 'Status' from tickets WHERE ticketID='$ticketID' AND status!='Closed' AND assignedTechnicianID = '$userID'";
+
+        //execute the query using a try catch 
+        try {
+            $rs = $this->db->query($this->SQL);  //execute the query
+
+            if ($rs) {
+                if ($rs->num_rows >= 1) {  //this query should return 1 record
+                    return $rs;
+                } else {
+                    //no records returned for this query 
+                    return false;
+                }
+            } else {
+                //the query has not executed successfully
+                return false;
+            }
+        } catch (Exception $ex) {
+            //an exception has occurred - get the details for diagnostic purposes
+            $this->MySQLiErrorNr = $ex->getCode(); //get the exception number
+            $this->MySQLiErrorMsg = $ex->getMessage(); //get the exception error message
+            return false;
+        }
+    }
+
+        /**
+     * Performs a SELECT query to return the details of a ticket by ticketID
+     * *
+     * @param string $ticketID The ticket's unique ID
+     * @param string $userID The technician's unique ID to ensure they can only view tickets assigned to them
+     * @return mixed Returns a result set on success, or false on failure
+     */
+    public function getTicketByTicketIDClosed($ticketID, $userID)
+    {
+        $this->SQL = "SELECT ticketID as 'TicketID', topic as 'Topic', dateTimeStamp as 'Date Opened', status as 'Status' from tickets WHERE ticketID='$ticketID' AND status='Closed' AND assignedTechnicianID = '$userID'";
+
+        //execute the query using a try catch 
+        try {
+            $rs = $this->db->query($this->SQL);  //execute the query
+
+            if ($rs) {
+                if ($rs->num_rows >= 1) {  //this query should return 1 record
+                    return $rs;
+                } else {
+                    //no records returned for this query 
+                    return false;
+                }
+            } else {
+                //the query has not executed successfully
+                return false;
+            }
+        } catch (Exception $ex) {
+            //an exception has occurred - get the details for diagnostic purposes
+            $this->MySQLiErrorNr = $ex->getCode(); //get the exception number
+            $this->MySQLiErrorMsg = $ex->getMessage(); //get the exception error message
+            return false;
+        }
+    }
+     /**
      * Generate a table of available tickets with action buttons for each ticket
      * 
      * @param mysqli_result $resultSet The result set containing ticket data

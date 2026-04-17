@@ -329,7 +329,6 @@ public static function form_add_comment($pageID, $ticketID = ''){
  * Generates a HTML form for displaying tickets by customer
  * 
  * @param string $pageID The pageID of the page which will be used to process the login form. 
- * @param string $customerID The ID of the customer whose tickets are to be displayed. 
  * @return string String containing the generated form.
  */
 public static function form_ticketsByCustomer($pageID){
@@ -343,10 +342,26 @@ public static function form_ticketsByCustomer($pageID){
 }
 
 /**
- * Generates a HTML form for displaying tickets by technician
+ * Generates a HTML form for displaying tickets by ticket ID
  * 
  * @param string $pageID The pageID of the page which will be used to process the login form. 
- * @param string $technicianID The ID of the technician whose tickets are to be displayed. 
+ * @return string String containing the generated form.
+ */
+public static function form_ticketByTicketID($pageID){
+        $form='<form method="post" action="index.php?pageID='.$pageID.'">';
+        $form.='<div class="form-group">';
+        $form.='<label for="ticketID">Enter Ticket ID</label><input required type="text" class="form-control" id="ticketID" name="ticketID" >';
+        $form.='</div> ';   
+        $form.='<button type="submit" class="btn btn-default" value="TRUE" name="btnViewTicketByTicketID">Find Ticket</button>';
+        $form.='<button type="reset" class="btn btn-default" value="TRUE" name="btnClear">Clear</button>';
+        $form.='</form>';
+        return $form;
+}
+
+/**
+ * Generates a HTML form for displaying tickets by technician
+ * 
+ * @param string $pageID The pageID of the page which will be used to process the login form.  
  * @return string String containing the generated form.
  */
 public static function form_ticketsByTechnician($pageID){
@@ -358,4 +373,5 @@ public static function form_ticketsByTechnician($pageID){
         $form.='</form>';
         return $form;
 }
+
 }
