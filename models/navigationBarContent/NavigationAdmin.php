@@ -83,7 +83,6 @@ class NavigationAdmin implements NavigationInterface {
                     case "home":
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=adminTickets">Tickets</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=manageUsers">Manage Users</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=manageSystem">Manage System</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
                         break;
                     case "logout":
@@ -95,6 +94,7 @@ class NavigationAdmin implements NavigationInterface {
                     case "adminTickets":
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=allTickets">All Tickets</a></li>';
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=openTickets">Open Tickets</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=ticketsByCustomer">Tickets by Customer</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=ticketsByTechnician">Tickets by Technician</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
@@ -103,6 +103,16 @@ class NavigationAdmin implements NavigationInterface {
                     case "allTickets":
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
                         //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=allTickets">All Tickets</a></li>';
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=openTickets">Open Tickets</a></li>';
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=ticketsByCustomer">Tickets by Customer</a></li>';
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=ticketsByTechnician">Tickets by Technician</a></li>';
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
+                        break;
+
+                    case "openTickets":
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=allTickets">All Tickets</a></li>';
+                        //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=openTickets">Open Tickets</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=ticketsByCustomer">Tickets by Customer</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=ticketsByTechnician">Tickets by Technician</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
@@ -110,6 +120,7 @@ class NavigationAdmin implements NavigationInterface {
                     case "ticketsByCustomer":
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=allTickets">All Tickets</a></li>';
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=openTickets">Open Tickets</a></li>';
                         //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=ticketsByCustomer">Tickets by Customer</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=ticketsByTechnician">Tickets by Technician</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
@@ -118,6 +129,7 @@ class NavigationAdmin implements NavigationInterface {
                     case "ticketsByTechnician":
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=allTickets">All Tickets</a></li>';
+                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=openTickets">Open Tickets</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=ticketsByCustomer">Tickets by Customer</a></li>';
                         //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=ticketsByTechnician">Tickets by Technician</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
@@ -173,26 +185,7 @@ class NavigationAdmin implements NavigationInterface {
                     
                     
                     
-                    //manage system navigation
-                    case "manageSystem":
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=systemOffLine">Take offline</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=systemOnLine">Set online</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
-                        break;
-                    case "systemOffLine":
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
-                        //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=systemOffLine">Take offline</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=systemOnLine">Set online</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
-                        break;                    
-                    case "systemOnLine":
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=systemOffLine">Take offline</a></li>';
-                        //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=systemOnLine">Set online</a></li>';
-                        $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=logout">Log Out</a></li>';
-                        break;                      
-                   
+               
                     default:
                         //$this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=home">Home</a></li>';
                         $this->menuNav.='<li><a href="'.$_SERVER['PHP_SELF'].'?pageID=manageUsers">Manage Users</a></li>';

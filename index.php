@@ -82,7 +82,6 @@ include_once 'forms/Form.php';
 //Page models - ADMIN user
 include_once 'models/panelContent/AdminHome.php';
 include_once 'models/panelContent/AccountAdminCustomer.php';
-include_once 'models/panelContent/AdminManageSystem.php';
 include_once 'models/panelContent/AdminManageUsers.php';
 include_once 'models/panelContent/AdminTickets.php';
 

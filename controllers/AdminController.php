@@ -94,6 +94,19 @@ class AdminController extends Controller  {
                     include_once 'views/view_navbar_1_panel.php';  //load the view                      
                     break;
                 }
+                
+                case "openTickets":
+                {
+                    //create objects to generate view content
+                    $contentModel = new AdminTickets($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
+                    $navigationModel = new NavigationAdmin($this->user, $this->getArray['pageID']);
+                    array_push($this->controllerObjects,$navigationModel,$contentModel);
+                    $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
+                    $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
+                    //update the view
+                    include_once 'views/view_navbar_1_panel.php';  //load the view                      
+                    break;
+                }
                 case "ticketsByCustomer":
                 {
                     //create objects to generate view content
@@ -182,37 +195,7 @@ class AdminController extends Controller  {
                     include_once 'views/view_navbar_2_panel.php'; //load the view
                     break;      
                 
-                //manage system handlers
-                case "manageSystem":
-                    //create objects to generate view content
-                    $contentModel = new AdminManageSystem($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
-                    $navigationModel = new NavigationAdmin($this->user, $this->getArray['pageID']);
-                    array_push($this->controllerObjects,$navigationModel,$contentModel);
-                    $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
-                    $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
-                    //update the view
-                    include_once 'views/view_navbar_1_panel.php';  //load the view                      
-                    break; 
-                case "systemOffLine":
-                    //create objects to generate view content
-                    $contentModel = new UnderConstruction($this->user,$this->db, $this->postArray ,$this->pageTitle, strtoupper($this->getArray['pageID']),$this->getArray['pageID']);
-                    $navigationModel = new NavigationAdmin($this->user, 'systemOffLine');
-                    array_push($this->controllerObjects,$navigationModel,$contentModel);
-                    $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
-                    $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
-                    //update the view
-                    include_once 'views/view_navbar_1_panel.php'; //load the view        
-                    break;
-                case "systemOnLine":
-                    //create objects to generate view content
-                    $contentModel = new UnderConstruction($this->user, $this->db, $this->postArray,$this->pageTitle, strtoupper($this->getArray['pageID']), $this->getArray['pageID']);
-                    $navigationModel = new NavigationAdmin($this->user, 'systemOnLine');
-                    array_push($this->controllerObjects,$navigationModel,$contentModel);
-                    $data = $this->getPageContent($contentModel,$navigationModel);  //get the page content from the models                 
-                    $this->viewData = $data;  //put the content array into a class property for diagnostic purpose
-                    //update the view
-                    include_once 'views/view_navbar_1_panel.php'; //load the view        
-                    break;
+                
                                
                 default:
                     //no valid $pageID selected by user - default loads HOME page

@@ -75,6 +75,13 @@ class AdminTickets extends PanelModel {
                 $this->panelContent_1= $table->generateAvailableTicketsTableWithButtons($rs);
                 array_push($this->panelModelObjects,$table); #for diagnostic purposes
                 break;
+            case "openTickets":  //sample menu item handler
+                $table=new ticketsTable($this->db);
+                $rs=$table->getOpenTickets();
+                $this->panelContent_1= $table->generateAvailableTicketsTableWithButtons($rs);
+                array_push($this->panelModelObjects,$table); #for diagnostic purposes
+                break;
+                
             case "ticketsByCustomer":  //sample menu item handler
                 $this->panelContent_1=Form::form_ticketsByCustomer($this->pageID);
                 break;
