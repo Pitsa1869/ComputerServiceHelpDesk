@@ -94,7 +94,7 @@ class TicketDetails extends PanelModel {
                         
                 }
                 
-                if(isset($_POST['btnCloseTicket']) && $ticketsTable->getTicketStatus($ticketID) != 'Closed' && $ticketsTable->getAssignedTechnicianID($ticketID) == $this->user->getUserID())
+                if(isset($_POST['btnCloseTicket']) && $ticketsTable->getTicketStatus($ticketID) != 'Closed' && ($ticketsTable->getAssignedTechnicianID($ticketID) == $this->user->getUserID() || $this->user->getUserType() == 'ADMIN'))
                 {
                     if($ticketsTable->closeTicket($ticketID))
                         {
