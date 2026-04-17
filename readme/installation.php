@@ -72,13 +72,13 @@ include_once '../config/config.php'; ?>
              <ul>
                  <li>General user (not logged in)</li>
                  <li>Administrator</li>
-                 <li>Manager</li>
+                 <li>Technician</li>
                  <li>Customer</li>
              </ul>
              <p>When the application database is set up you will see 3 tables - one for each LOGGED IN usertype. Passwords are encrypted. All users login using their registered email address.<br>Sample logins are as follows::
              <ul>
                  <li>Administrator ID: <code>jsmith@college.ie</code> and Password: <code>Password1</code></li>
-                 <li>Manager ID: <code>flann@gmail.com</code> and Password: <code>Password1</code></li>
+                 <li>Technician ID: <code>flann@gmail.com</code> and Password: <code>Password1</code></li>
                  <li>Customer ID: <code>janeh@mail.com</code> and Password: <code>Password1</code></li>
              </ul>  
 
@@ -99,7 +99,7 @@ include_once '../config/config.php'; ?>
                  
                  
              <p>Once you are familiar with the structure - then start by creating your own menu structures for your users. As demonstrated in class - New menu item handlers can use the <code>
-                     UnderConstruction.php</code> model until you develop your own specific content models. See logged in Manager <code>Manage System</code> menu items as an example.
+                     UnderConstruction.php</code> model until you develop your own specific content models. See logged in Technician <code>Manage System</code> menu items as an example.
                      
              <h2>Framework Documentation</h2>
              <p>Full documentation of all classes in this framework can be found <a href='./docs/index.html' target='_blank'>here</a>. 
